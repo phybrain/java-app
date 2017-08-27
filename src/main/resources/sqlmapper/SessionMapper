@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.bianming.javaapp.mapper.SessionMapper">
+
+    <resultMap id="SessionInfo" type="team.bianming.javaapp.entity.SessionInfo">
+        <result property="id" column="id"/>
+        <result property="starttime" column="starttime"/>
+        <result property="endtime" column="endtime"/>
+        <result property="userId" column="user_id"/>
+        <result property="csId" column="cs_id"/>
+    </resultMap>
+
+    <sql id="SessionInfoRef">
+        id,starttime,endtime,user_id,cs_id
+    </sql>
+
+    <select id="getSessions" parameterType="HashMap" resultMap="SessionInfo">
+        select
+        <include refid="SessionInfoRef"/>
+        from session
+        where 1=1
+        <if test="userId!=null">
+            and user_id = #{userId}
+        </if>
+        <if test="csId!=null">
+            and cs_id = #{csId}
+        </if>
+        order by starttime
+    </select>
+
+</mapper>
