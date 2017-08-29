@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface CSService {
 
-    public Page<CustomService> findCSByPage(int pageNo, int pageSize);
+    public Page<CustomService> findCSByPage(int pageNum, int pageSize);
     public int DelteCS(CustomService customService);
     public int SaveCS (CustomService customService);
     public int UpdateCS(CustomService customService);

@@ -1,5 +1,6 @@
 package team.bianming.javaapp.mapper;
 
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.*;
 import team.bianming.javaapp.entity.CustomService;
 import team.bianming.javaapp.entity.User;
@@ -22,7 +23,7 @@ public interface CustomServiceMapper {
             @Result(column = "num", property = "num"),
 
     })
-    public CustomService selectById(int id) throws Exception;
+    public CustomService selectById(int id);
 
     @Select("select * from custom_service")
     @Results({ @Result(id = true, column = "id", property = "id"),
@@ -33,17 +34,17 @@ public interface CustomServiceMapper {
             @Result(column = "num", property = "num"),
 
     })
-    public List<CustomService> selectAll() throws Exception;
+    public Page<CustomService> selectAll() ;
 
 
     @Insert("insert into custom_service (name,password,weekday,time,num) values (#{name},#{password},#{weekday},#{time},#{num})")
     @SelectKey(statement="select last_insert_id()",keyProperty="id", resultType=int.class, before=true)
-    public int insert(CustomService customService) throws Exception;
+    public int insert(CustomService customService);
 
     @Update("update custom_service set name=#{name},password=#{password},weekday=#{weekday},num=#{num},time=#{time} where id=#{id}")
-    public int update(CustomService customService) throws Exception;
+    public int update(CustomService customService);
 
 
     @Delete("delete from custom_service where id=#{id}")
-    public int delete(int id) throws Exception;
+    public int delete(int id);
 }
