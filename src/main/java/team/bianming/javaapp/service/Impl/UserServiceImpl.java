@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.bianming.javaapp.entity.SessionInfo;
 import team.bianming.javaapp.entity.User;
+import team.bianming.javaapp.mapper.SessionMapper;
 import team.bianming.javaapp.mapper.UserMapper;
 import team.bianming.javaapp.service.UserService;
 
@@ -19,6 +20,8 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    SessionMapper sessionMapper;
 
     @Override
     public Page<User> findUserByPage(int pageNum, int pageSize) {
@@ -49,6 +52,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public SessionInfo findLastSessionInfo(User user) {
-        return null;
+        return sessionMapper.getUserLastSession(user.getId());
     }
 }
