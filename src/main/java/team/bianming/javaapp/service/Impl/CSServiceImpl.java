@@ -32,7 +32,7 @@ public class CSServiceImpl implements CSService {
     }
 
     @Override
-    public int DelteCS(CustomService customService) {
+    public int DeleteCS(CustomService customService) {
         return customServiceMapper.delete(customService.getId());
     }
 

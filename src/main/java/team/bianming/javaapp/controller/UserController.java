@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by xiaopeng on 2017/9/10.
  */
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @ResponseBody
     @RequestMapping("/")
     String home() {
-        return "Hello World!";
+        return "index";
     }
 
     @ResponseBody

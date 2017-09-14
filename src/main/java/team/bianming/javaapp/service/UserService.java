@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserService {
 
     public Page<User> findUserByPage(int pageNum, int pageSize);
-    public int DelteUser(User user);
+    public int DeleteUser(User user);
     public int SaveUser (User user);
     public int UpdateUser(User user);
     public List<SessionInfo> findSessionInfoByUser(User user);
