@@ -4,11 +4,13 @@ import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import team.bianming.javaapp.Util.FileUtil;
 import team.bianming.javaapp.entity.News;
 import team.bianming.javaapp.service.NewsService;
 
@@ -37,27 +39,22 @@ public class NewsController {
         model.addAttribute("hello", "spring");
         return "index";
     }
-
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-        if (!file.isEmpty()) {
-            try {
-                String filePath = request.getSession().getServletContext().getRealPath("imgupload/");
-                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(filePath));
-                out.write(file.getBytes());
-                out.flush();
-                out.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return "上传失败," + e.getMessage();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "上传失败," + e.getMessage();
-            }
-            return "上传成功";
-        } else {
-            return "上传失败，因为文件是空的.";
+    @RequestMapping(value="/upload", method = RequestMethod.POST)
+    public  String uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        String contentType = file.getContentType();
+        String fileName = file.getOriginalFilename();
+
+        //String filePath = request.getSession().getServletContext().getRealPath("imgupload/");
+        String filePath=ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        filePath=filePath+"";
+        System.out.println(filePath);
+        try {
+            FileUtil.uploadFile(file.getBytes(), filePath, fileName);
+        } catch (Exception e) {
+            return "上传失败"+e.getMessage();
         }
+        //返回json
+        return "uploadimg success";
     }
 }
