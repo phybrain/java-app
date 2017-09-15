@@ -1,17 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Hello world!</title>
+<html class=" js csstransforms3d"><head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>便民中心后台管理系统</title>
+	<link rel="stylesheet" href="/css/base.css">
+	<link rel="stylesheet" href="/css/page.css">
+	<!--[if lte IE 8]>
+	<link href="/css/ie8.css" rel="stylesheet" type="text/css"/>
+	<![endif]-->
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/modernizr.js"></script>
+	<!--[if IE]>
+	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
 </head>
+
 <body>
+<div class="superWrap clearfix" style="height: 781px;">
+	<!--side S-->
+	<div class="super-side-menu">
+		<iframe src="/public_left_admin.html" width="205" height="100%" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>
+	</div>
+	<!--side E-->
+	<!--content S-->
+	<div class="superContent">
+		
+		<div class="super-header super-header2">
+			<iframe src="/public_header.html" id="Pubheader" name="Pubheader" width="100%" height="86" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" style="height: 86px;"></iframe>
+		</div>
+		<!--header-->
+		<div class="superCtab superCtabBot" style="height: 695px;">
+			<iframe src="/wenzhang_xinwen.html" id="Mainindex" name="Mainindex" width="100%" height="100%" marginheight="0" marginwidth="0" frameborder="0"></iframe>
+		</div>
+		<!--main-->
+		
+	</div>
+	<!--content E-->
+	
+</div>
 
-<h1 th:inline="text">Hello.v.2</h1>
-<p th:text="${hello}"></p>
+<script>
+window.onresize = function(){
+	var winH=$(window).height();
+	var headH=$('.super-header').height();
+	$('.superWrap').height(winH);
+	$('.superCtabBot').height(winH-headH);
+};
+$(window).resize();
+</script>
 
-<form enctype="multipart/form-data" method="post" action="/news/upload">
-   <span> 图片:</span><input type="file" name="file"/>
-    <input type="submit" value="上传"/>
-</form>
-</body>
-</html>
+</body></html>

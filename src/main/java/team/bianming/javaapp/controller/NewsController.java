@@ -1,10 +1,12 @@
 package team.bianming.javaapp.controller;
 
 import com.github.pagehelper.Page;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +18,10 @@ import team.bianming.javaapp.service.NewsService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.net.URI;
+import java.net.URL;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Created by xiaopeng on 2017/9/14.
@@ -46,8 +51,15 @@ public class NewsController {
         String fileName = file.getOriginalFilename();
 
         //String filePath = request.getSession().getServletContext().getRealPath("imgupload/");
-        String filePath=ClassUtils.getDefaultClassLoader().getResource("").getPath();
-        filePath=filePath+"";
+        URL url=this.getClass().getResource("");
+        String filePath="";
+//        try {
+//            filePath = ResourceUtils.getFile("classpath:/static/img").getPath();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        ;
+
         System.out.println(filePath);
         try {
             FileUtil.uploadFile(file.getBytes(), filePath, fileName);
