@@ -46,13 +46,13 @@ public class NewsController {
     }
     @ResponseBody
     @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public  String uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-        String contentType = file.getContentType();
+    public  String uploadImg(@RequestParam("file") MultipartFile file) {
+
         String fileName = file.getOriginalFilename();
 
         //String filePath = request.getSession().getServletContext().getRealPath("imgupload/");
         URL url=this.getClass().getResource("");
-        String filePath="";
+        String filePath="D:\\";
 //        try {
 //            filePath = ResourceUtils.getFile("classpath:/static/img").getPath();
 //        } catch (Exception e) {

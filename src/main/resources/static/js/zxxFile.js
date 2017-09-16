@@ -79,29 +79,32 @@ var ZXXFILE = {
 			(function(file) {
 				var xhr = new XMLHttpRequest();
 				if (xhr.upload) {
+					console.log("到了1")
 					// 上传中
 					xhr.upload.addEventListener("progress", function(e) {
 						self.onProgress(file, e.loaded, e.total);
 					}, false);
-		
+
 					// 文件上传成功或是失败
 					xhr.onreadystatechange = function(e) {
+                        console.log("到了2")
 						if (xhr.readyState == 4) {
 							if (xhr.status == 200) {
 								self.onSuccess(file, xhr.responseText);
 								self.funDeleteFile(file);
 								if (!self.fileFilter.length) {
 									//全部完毕
-									self.onComplete();	
+									self.onComplete();
 								}
 							} else {
-								self.onFailure(file, xhr.responseText);		
+								self.onFailure(file, xhr.responseText);
 							}
 						}
 					};
-		
+                    console.log("到了3")
 					// 开始上传
 					xhr.open("POST", self.url, true);
+					xhr.setRequestHeader("ContentType","application/octet-stream");
 					xhr.setRequestHeader("X_FILENAME", file.name);
 					xhr.send(file);
 				}	
