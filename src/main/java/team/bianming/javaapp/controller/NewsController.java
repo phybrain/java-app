@@ -39,7 +39,7 @@ public class NewsController {
         return newsService.findNewsByCategory(pageNum,pageSize,categoryId);
     }
 
-    @RequestMapping(value = "/hellos",method = RequestMethod.GET)
+    @RequestMapping(value = "/newsindex",method = RequestMethod.GET)
     public String hello(Model model) {
         model.addAttribute("hello", "spring");
         return "index";
@@ -50,17 +50,19 @@ public class NewsController {
 
         String fileName = file.getOriginalFilename();
 
-        //String filePath = request.getSession().getServletContext().getRealPath("imgupload/");
-        URL url=this.getClass().getResource("");
-        String filePath="D:\\";
-//        try {
-//            filePath = ResourceUtils.getFile("classpath:/static/img").getPath();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        ;
+        File path = null;
+        try {
+            path = new File(ResourceUtils.getURL("classpath:").getPath());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        if(!path.exists()) path = new File("");
+        File upload = new File(path.getAbsolutePath(),"static\\upload\\");
+        if(!upload.exists())
+            upload.mkdirs();
+        System.out.println("upload url:"+upload.getAbsolutePath());
+        String filePath=upload.getAbsolutePath();
 
-        System.out.println(filePath);
         try {
             FileUtil.uploadFile(file.getBytes(), filePath, fileName);
         } catch (Exception e) {
