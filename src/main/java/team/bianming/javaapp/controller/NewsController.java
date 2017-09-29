@@ -39,6 +39,18 @@ public class NewsController {
         return newsService.findNewsByCategory(pageNum,pageSize,categoryId);
     }
 
+    @ResponseBody
+    @RequestMapping("/deleteNews")
+    public int deleteNews(News news){
+
+        return newsService.DeleteNews(news);
+    }
+    @ResponseBody
+    @RequestMapping("/updateNews")
+    public int updateNews(News news){
+
+        return newsService.UpdateNews(news);
+    }
     @RequestMapping(value = "/newsindex",method = RequestMethod.GET)
     public String hello(Model model) {
         model.addAttribute("hello", "spring");
@@ -71,4 +83,6 @@ public class NewsController {
         //返回json
         return "uploadimg success";
     }
+
+
 }

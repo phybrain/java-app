@@ -32,6 +32,7 @@ $(function(){
     //弹出框
 // 	点击修改弹出层
     $(".sp-modify").click(function(){
+
 		$(".layuiBg").css({
 			display:"block",height:$(document).height(),
 		});
@@ -41,6 +42,17 @@ $(function(){
 			display:"block"
 		});
 	});
+    $("#change").click(function(){
+        alert(1)
+        $(".layuiBg").css({
+            display:"block",height:$(document).height(),
+        });
+        $(".imgXgbox").css({
+            left:($("body").width()-$(".imgXgbox").width())/2-20+"px",
+            top:($(window).height()-$(".imgXgbox").height())/2+$(window).scrollTop()+"px",
+            display:"block"
+        });
+    });
 	
 //	点击添加分类弹出
 	LabelAdd();	

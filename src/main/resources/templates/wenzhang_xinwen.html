@@ -9,11 +9,13 @@
 	<!--[if lte IE 8]>
 	<link href="/css/ie8.css" rel="stylesheet" type="text/css"/>
 	<![endif]-->
+
 	<script type="text/javascript" src="/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
 	<script type="text/javascript" src="/js/modernizr.js"></script>
 	<!--[if IE]>
 	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+
 	<![endif]-->
 </head>
 
@@ -40,16 +42,16 @@
 						<div class="operateBtn">
 							<a href="wenzhang_xinwen_fabu.html" class="greenbtn publish">发布文章</a>
 							<a href="javascript:;" class="greenbtn add sp-add">添加分类</a>
-							<a href="javascript:;" class="greenbtn add sp-photo" id="preview">栏目图片</a>
-							<a href="javascript:;" class="modify sp-modify" id="sp-modify">修改</a>
+
+							<!--<a href="javascript:;" class="modify sp-modify" id="sp-modify">修改</a>-->
 						</div>
 						<div class="searchBar">
 							<input type="text" id="" value="" class="form-control srhTxt" placeholder="输入标题关键字搜索">
 							<input type="button" class="srhBtn" value="">
 						</div>
 					</div>
-					<div class="super-label clearfix">
-						<a href="#">行业新闻<em style="display: none;"></em></a><a href="#">保险常识<em style="display: none;"></em></a>
+					<div id="cate" class="super-label clearfix">
+
 					</div>
 					
 					<div class="Mian-cont-wrap">
@@ -60,24 +62,24 @@
 						</div>
 						<table border="0" cellspacing="0" cellpadding="0" class="defaultTable defaultTable2">
 							<tbody id="newstbody">
-							<tr>
-								<td class="t_1">0</td>
-								<td class="t_2"><a href="#">平安好医生与平安银行开启全面战略合作</a></td>
-								<td class="t_3">2015-12-01</td>
-								<td class="t_4"><div class="btn"><a href="#" class="modify">修改</a><a href="#" class="delete">删除</a></div></td>
-							</tr>
+							<!--<tr>-->
+								<!--<td class="t_1">0</td>-->
+								<!--<td class="t_2"><a href="#">平安好医生与平安银行开启全面战略合作</a></td>-->
+								<!--<td class="t_3">2015-12-01</td>-->
+								<!--<td class="t_4"><div class="btn"><a href="#" class="modify">修改</a><a href="#" class="delete">删除</a></div></td>-->
+							<!--</tr>-->
 
 
 
 						</tbody></table>
 						<!--pages S-->
 						<div class="pageSelect">
-							<span>共 <b>2</b> 条 每页 <b>1 </b>条   1/2</span>
+							<span> 每页 <b>10</b>条 </span>
 							<div class="pageWrap">
 								<a class="pagePre"><i class="ico-pre">&nbsp;</i></a>
-								<a href="#" class="pagenumb cur">1</a>
-								<a href="#" class="pagenumb">2</a>
-								<a href="#" class="pagenumb">3</a>
+								<a id="page1" href="javascript:changePage(1)" class="pagenumb cur">1</a>
+								<a id="page2" href="javascript:changePage(2)" class="pagenumb">2</a>
+								<a id="page3" href="javascript:changePage(3)" class="pagenumb">3</a>
 								<a href="#" class="pagenext"><i class="ico-next">&nbsp;</i></a>
 							</div>
 						</div>
@@ -97,9 +99,18 @@
 	<div class="imgXgbox layuiBox">
 		<div class="layer-title clearfix"><h2>修改栏目图片</h2><span class="layerClose"></span></div>
 		<div class="layer-content">
-			<div class="XgfileImg"><img src="images/bg_img_sc.jpg"><input id="fileImage" class="fileImageSlect" type="file" size="30" name="fileselect[]"></div>
+			<div class="XgfileImg"><img id="Newsimg" src="images/img_xc_bg.jpg"><input id="fileImage" class="fileImageSlect" type="file" size="30" name="fileselect[]"></div>
 			<p class="onclktip">（点击图片可重新上传）</p>
-			<div class="Xgimglink clearfix"><span>图片链接：</span><input type="text" value=""></div>
+			<div class="Xgimglink clearfix"><span>标题：</span><input id="title" type="text" value=""></div>
+			<div class="Xgimglink clearfix"><span>正文：</span><input id="texts" type="text" value="" style="height: 100px"></div>
+			<!--<div class="Xgimglink clearfix"><span>分类：</span><input id="category" type="text" value=""></div>-->
+			<div class="pubselect" style="align-items: center;margin-left: 180px">
+							<span class="select_ui" style="align-items: center;text-align: center;"><span class="select_text_ui" style="min-width: 6em;">请选择分类</span><b class="select_arrow"></b><select name="categoryId" style="padding-left: 10px">
+								<option value="1">首页</option>
+								<option value="2">工作动态</option>
+								<option value="3">社会政策</option>
+							</select></span>
+			</div>
 			<div class="XgBtn"><input type="button" value="保存" class="saveBtn"></div>
 		</div>
 	</div>
@@ -107,9 +118,9 @@
 	<div class="addFeileibox layuiBox">
 		<div class="layer-title clearfix"><h2>添加分类</h2><span class="layerClose"></span></div>
 		<div class="layer-content">
-			<div class="aFllink clearfix"><span>上级栏目：</span><h5>新闻动态</h5></div>
-			<div class="aFllink clearfix"><span>二级栏目：</span><input type="text" value=""></div>
-			<div class="aFlBtn"><input type="button" value="保存" class="saveBtn"></div>
+			<div class="aFllink clearfix"><span>上级栏目：</span><h5>新闻</h5></div>
+			<div class="aFllink clearfix"><span>分类：</span><input type="text" value="" id="catenew"></div>
+			<div class="aFlBtn"><input type="button" value="保存" class="saveBtn" id="savecate"></div>
 		</div>
 	</div>
 	<!--栏目管理-->
@@ -314,17 +325,24 @@ ZXXFILE.init();
 </script>
 
 	<script th:inline="javascript">
+
+		var categoryID=1;
+		var Page=0;
        $(document).ready( function() {
-           fetch("/news/newslist?pageNum=0&pageSize=2&categoryId=1").then(function (response) {
+           fetch("/news/newslist?pageNum="+Page+"&pageSize=1&categoryId="+categoryID+"").then(function (response) {
                return response.json().then(function (json) {
                    console.log(json[0].content)
                    for (i = 0; i < json.length; i++) {
+
+                       var t=json[i].title
+					   var c=json[i].content
+					   var url=json[i].url
                        // do something more...
                        $("#newstbody").append("<tr>" +
                            "<td class='t_1'>" + json[i].id + "</td>" +
                            "<td class='t_2'><a href=''>" + json[i].title + "</a></td>" +
                            "<td class='t_3'>2017-9-01</td>" +
-                           "<td class='t_4'><div class='btn'><a href='#' class='modify'>修改</a><a href='#'class='delete'>删除</a></div></td>" +
+                           "<td class='t_4'><div class='btn'><a href='javascript:changeNews("+JSON.stringify(json[i])+");' class='delete'>修改</a><a href='javascript:deletenews("+json[i].id+")'class='delete'>删除</a></div></td>" +
                            " </tr>"
                        )
                    }
@@ -333,6 +351,112 @@ ZXXFILE.init();
 
        })
 
+
+
+       $(document).ready( function() {
+           fetch("/category/categoryList").then(function (response) {
+               return response.json().then(function (json) {
+                   console.log(json[0].content)
+                   for (i = 0; i < json.length; i++) {
+                       // do something more...
+                       $("#cate").append(
+                          "<a id='"+json[i].id+"' href='javascript:changeCate("+json[i].id+");'>"+ json[i].categoryName +"<em style='display: none;'>" +
+					   "</em></a>"
+                       )
+                   }
+               });
+           })
+
+       })
+
+		function changeCate(Id){
+
+          categoryID=Id;
+
+            fetch("/news/newslist?pageNum="+Page+"&pageSize=1&categoryId="+Id+"").then(function (response) {
+                return response.json().then(function (json) {
+                    console.log(json)
+					$("#newstbody").html("")
+
+                    for (i = 0; i < json.length; i++) {
+                        // do something more...
+
+                        $("#newstbody").append("<tr>" +
+                            "<td class='t_1'>" + json[i].id + "</td>" +
+                            "<td class='t_2'><a href=''>" + json[i].title + "</a></td>" +
+                            "<td class='t_3'>2017-9-01</td>" +
+                            "<td class='t_4'><div class='btn'><a href='javascript:changeNews("+JSON.stringify(json[i])+");' class='delete' >修改</a><a href='javascript:deletenews("+json[i].id+")'class='delete'>删除</a></div></td>" +
+                            " </tr>"
+                        )
+                    }
+                });
+            })
+
+		}
+
+		function changePage(PageNum) {
+			Page=PageNum;
+
+			if (Page==1) {
+                $("#page1").attr("class", "pagenumb cur");
+                $("#page2").attr("class", "pagenumb");
+                $("#page3").attr("class", "pagenumb");
+            }
+            else if (Page==2){
+                $("#page1").attr("class", "pagenumb");
+                $("#page2").attr("class", "pagenumb cur");
+                $("#page3").attr("class", "pagenumb");
+            }
+            else if (Page==3){
+                $("#page1").attr("class", "pagenumb");
+                $("#page2").attr("class", "pagenumb");
+                $("#page3").attr("class", "pagenumb cur");
+            }
+
+            changeCate(categoryID)
+        }
+
+        function deletenews(newsId) {
+
+            fetch("/news/deleteNews?id="+newsId).then(function (response) {
+                return response.json().then(function (json) {
+
+                    alert("删除成功")
+                    window.location.reload()
+                });
+            })
+        }
 	</script>
+<script th:inline="javascript">
+     function changeNews(j) {
+
+         $(".layuiBg").css({
+             display:"block",height:$(document).height(),
+         });
+         $(".imgXgbox").css({
+             left:($("body").width()-$(".imgXgbox").width())/2-20+"px",
+             top:($(window).height()-$(".imgXgbox").height())/2+$(window).scrollTop()+"px",
+             display:"block"
+         });
+         $("#title").attr("value",j.title)
+		 $("#texts").attr("value",j.content)
+		 $("#Newsimg").attr("src",j.url)
+     }
+
+
+     $("#savecate").click(function(){
+        var catenew=$("#catenew").val();
+
+         fetch("/category/addCategory?categoryName="+catenew).then(function (response) {
+             return response.json().then(function (json) {
+
+                 alert("添加成功")
+                 window.location.reload()
+             });
+         })
+
+     });
+</script>
+
 
 </body></html>

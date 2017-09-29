@@ -33,11 +33,11 @@ public interface NewsMapper {
     })
     public Page<News> selectByCategoryId(int categoryId);
 
-    @Insert("insert into news (title,content,category_id,url) values (#{title},#{content},#{category_id},#{url})")
+    @Insert("insert into news (title,content,category_id,url) values (#{title},#{content},#{categoryId},#{url})")
     @SelectKey(statement="select last_insert_id()",keyProperty="id", resultType=int.class, before=true)
     public int insert(News news);
 
-    @Update("update user set content=#{content},title=#{title},url=#{url}, categoryId=#{category_id} where id=#{id}")
+    @Update("update user set content=#{content},title=#{title},url=#{url}, category_id=#{categoryId} where id=#{id}")
     public int update(News news) ;
 
 

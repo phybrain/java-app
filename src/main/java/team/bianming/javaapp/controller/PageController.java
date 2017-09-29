@@ -38,4 +38,38 @@ public class PageController {
         return "wenzhang_xinwen_fabu";
     }
 
+    @RequestMapping("/kefuguanli.html")
+    public String KefuManage(){
+
+        return "kefuguanli";
+    }
+
+    @RequestMapping("/admin/login.html")
+    public String loginAdmin(){
+
+        return "loginAdmin";
+    }
+
+    @RequestMapping("/CS/login.html")
+    public String loginCS(){
+
+        return "login_kefu";
+    }
+    @RequestMapping("/knowledge.html")
+    public String knowledge(){
+
+        return "knowledge";
+    }
+    @RequestMapping("/user.html")
+    public String userManage(){
+
+        return "user";
+    }
+
+
+    @RequestMapping("/work_statistics.html")
+    public String work(){
+
+        return "work_statistics";
+    }
 }
