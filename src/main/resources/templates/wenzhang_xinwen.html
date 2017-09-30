@@ -97,21 +97,20 @@
 	<div class="layuiBg"></div><!--公共遮罩-->
 	<!--点击修改弹出层-->
 	<div class="imgXgbox layuiBox">
-		<div class="layer-title clearfix"><h2>修改栏目图片</h2><span class="layerClose"></span></div>
+		<div class="layer-title clearfix"><h2>修改新闻图片</h2><span class="layerClose"></span></div>
 		<div class="layer-content">
-			<div class="XgfileImg"><img id="Newsimg" src="images/img_xc_bg.jpg"><input id="fileImage" class="fileImageSlect" type="file" size="30" name="fileselect[]"></div>
-			<p class="onclktip">（点击图片可重新上传）</p>
+			<div class="XgfileImg"><img id="Newsimg" src="images/img_xc_bg.jpg"><input id="fileImage" class="fileImageSlect" type="file" size="30" name="file"></div>
+			<p class="onclktip" id="click">（点击图片可重新上传）</p><input type="button" value="上传" class="saveBtn" id="upload" style="height: 20px; width:50px; margin-left: 240px;background-color: #00a2d4 ">
 			<div class="Xgimglink clearfix"><span>标题：</span><input id="title" type="text" value=""></div>
 			<div class="Xgimglink clearfix"><span>正文：</span><input id="texts" type="text" value="" style="height: 100px"></div>
 			<!--<div class="Xgimglink clearfix"><span>分类：</span><input id="category" type="text" value=""></div>-->
 			<div class="pubselect" style="align-items: center;margin-left: 180px">
-							<span class="select_ui" style="align-items: center;text-align: center;"><span class="select_text_ui" style="min-width: 6em;">请选择分类</span><b class="select_arrow"></b><select name="categoryId" style="padding-left: 10px">
-								<option value="1">首页</option>
-								<option value="2">工作动态</option>
-								<option value="3">社会政策</option>
+							<span class="select_ui" style="align-items: center;text-align: center;"><span class="select_text_ui" style="min-width: 6em;">请选择分类</span><b class="select_arrow"></b><select name="categoryId" id="categoryId" style="padding-left: 10px">
+								<!--<option value="1">首页</option>-->
+
 							</select></span>
 			</div>
-			<div class="XgBtn"><input type="button" value="保存" class="saveBtn"></div>
+			<div class="XgBtn"><input type="button" value="保存" class="saveBtn" id="updateNews"></div>
 		</div>
 	</div>
 	<!--点击添加分类弹出-->
@@ -328,8 +327,9 @@ ZXXFILE.init();
 
 		var categoryID=1;
 		var Page=0;
+		var pageSize=2;
        $(document).ready( function() {
-           fetch("/news/newslist?pageNum="+Page+"&pageSize=1&categoryId="+categoryID+"").then(function (response) {
+           fetch("/news/newslist?pageNum="+Page+"&pageSize="+pageSize+"&categoryId="+categoryID+"").then(function (response) {
                return response.json().then(function (json) {
                    console.log(json[0].content)
                    for (i = 0; i < json.length; i++) {
@@ -373,7 +373,7 @@ ZXXFILE.init();
 
           categoryID=Id;
 
-            fetch("/news/newslist?pageNum="+Page+"&pageSize=1&categoryId="+Id+"").then(function (response) {
+            fetch("/news/newslist?pageNum="+Page+"&pageSize="+pageSize+"&categoryId="+Id+"").then(function (response) {
                 return response.json().then(function (json) {
                     console.log(json)
 					$("#newstbody").html("")
@@ -428,6 +428,7 @@ ZXXFILE.init();
         }
 	</script>
 <script th:inline="javascript">
+	 var newsId="";
      function changeNews(j) {
 
          $(".layuiBg").css({
@@ -441,6 +442,7 @@ ZXXFILE.init();
          $("#title").attr("value",j.title)
 		 $("#texts").attr("value",j.content)
 		 $("#Newsimg").attr("src",j.url)
+		 newsId=j.id
      }
 
 
@@ -456,6 +458,77 @@ ZXXFILE.init();
          })
 
      });
+
+     $(document).ready( function() {
+         fetch("/category/categoryList").then(function (response) {
+             return response.json().then(function (json) {
+                 for (i = 0; i < json.length; i++) {
+                     // do something more...
+                     var j=i+1;
+                     $("#categoryId").append(
+                         "<option value='"+j+"'>"+json[i].categoryName+"</option>"
+                     )
+                 }
+             });
+         })
+
+     })
+</script>
+<script type="text/javascript">
+	  var paths="";
+	$("").click(
+	    function () {
+
+            var form = new FormData();
+            form.append('file',$("#fileImage")[0].files[0])
+
+            $.ajax({
+                url:"/news/upload",
+                type:"POST",
+                data:form,
+                cache:false,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    paths=data
+                   alert("成功上传")
+
+                },
+                error:function(e){
+                    alert("错误！！");
+                    window.clearInterval(timer);
+                }
+            });
+        }
+	)
+
+	$("#updateNews").click(
+          function () {
+              var formData = new FormData();
+
+              // 请求参数 ('key',value)
+              formData.append('title', $("#title").val());
+              formData.append('content',$("#texts").val());
+              formData.append('url',paths);
+              formData.append('categoryId',$("#categoryId").val())
+              formData.append('id',newsId)
+
+              fetch("/news/updateNews",{
+                  method:'POST',
+                  body:formData,
+
+              }).then(function (response)
+
+              {
+                  return response.json().then(function (json) {
+                      alert("修改成功")
+                      window.location.reload()
+                  });
+              })
+          }
+      )
+
+
 </script>
 
 

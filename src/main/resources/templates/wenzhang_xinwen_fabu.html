@@ -53,14 +53,13 @@
 				<form action="" method="post">
 					<h5 class="pubtitle">选择分类</h5>
 					<div class="pubselect">
-							<span class="select_ui"><span class="select_text_ui" style="min-width: 6em;">请选择分类</span><b class="select_arrow"></b><select name="">
-								<option value="">请选择分类</option>
-								<option value="">首页</option>
+							<span class="select_ui"><span class="select_text_ui" style="min-width: 6em;">请选择分类</span><b class="select_arrow"></b><select name="category" id="cate">
+								<!--<option value="">首页</option>-->
 							</select></span>
 					</div>
 					<h5 class="pubtitle">文章标题</h5>
 					<div class="pub-txt-bar">
-						<input class="shuruTxt" type="text" style="height: 30px;">
+						<input class="shuruTxt" id="title" type="text" style="height: 30px;">
 					</div>
 
 
@@ -120,7 +119,7 @@
 body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}</style><link rel='stylesheet' type='text/css' href='http://localhost:8080/js/utf8-jsp/themes/iframe.css'/></head><body class='view' ></body><script type='text/javascript'  id='_initialScript'>setTimeout(function(){editor = window.parent.UE.instants['ueditorInstant0'];editor._setup(document);},0);var _tmpScript = document.getElementById('_initialScript');_tmpScript.parentNode.removeChild(_tmpScript);</script></html>&quot;);document.close();}())"></iframe></div><div id="edui1_bottombar" class="edui-editor-bottomContainer edui-default"><table class="edui-default"><tbody class="edui-default"><tr class="edui-default"><td id="edui1_elementpath" class="edui-editor-bottombar edui-default"><div class="edui-editor-breadcrumb">元素路径:</div></td><td id="edui1_wordcount" class="edui-editor-wordcount edui-default">字数统计</td><td id="edui1_scale" class="edui-editor-scale edui-default" style="display: none;"><div class="edui-editor-icon edui-default"></div></td></tr></tbody></table></div><div id="edui1_scalelayer" class="edui-default"></div></div></div>
 					</div>
 					<div class="pub-btn">
-						<input class="saveBtn" id="" type="button" value="发布">
+						<input class="saveBtn" id="save" type="button" value="发布">
 					</div>
 				</form>
 			</div>
@@ -138,7 +137,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}</style><
 	<div class="layer-title clearfix"><h2>添加标签</h2><span class="layerClose"></span></div>
 	<div class="layer-content">
 		<div class="addSortMain clearfix">
-			<span>保险</span><span data-id="lb1">保险</span><span data-id="lb2">保</span><span data-id="lb2">保险</span><span>保险</span><span>保险</span><span>保险</span><span>保险</span><span>保险</span><span>保险</span><span>保险</span><span>保险</span><span>保险</span><span>保险</span><span>保险</span>
+
 		</div>
 		<div class="addSortBtn"><input class="saveBtn FuncsaveBtn" type="button" value="保存"></div>
 	</div>
@@ -269,6 +268,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}</style><
 </script>
 <script type="text/javascript">
 
+	var paths="";
     function ajaxsubmit() {
 
 
@@ -284,7 +284,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}</style><
             processData:false,
             contentType:false,
             success:function(data){
-               console.log("success!!!")
+               paths=data
                 alert("上传成功");
             },
             error:function(e){
@@ -391,4 +391,46 @@ ZXXFILE = $.extend(ZXXFILE, params);
 ZXXFILE.init();
 </script>
 
-<div id="edui_fixedlayer" class="edui-default" style="position: fixed; left: 0px; top: 0px; width: 0px; height: 0px;"><div id="edui239" class="edui-dialog edui-for-snapscreen edui-default" style="display: none;"><div class="edui-dialog edui-for-snapscreen edui-default"><div id="edui239_body" class="edui-dialog-body edui-default"><div class="edui-dialog-shadow edui-default"></div><div id="edui239_titlebar" class="edui-dialog-titlebar edui-default"><div class="edui-dialog-draghandle edui-default" onmousedown="$EDITORUI[&quot;edui239&quot;]._onTitlebarMouseDown(event, this);"><span class="edui-dialog-caption edui-default">截图</span></div><div id="edui240" class="edui-box edui-button edui-dialog-closebutton edui-default"><div id="edui240_state" onmousedown="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui240_body" unselectable="on" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui240&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui240&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div></div><div id="edui239_content" class="edui-dialog-content edui-default"></div><div class="edui-dialog-foot edui-default"><div id="edui239_buttons" class="edui-dialog-buttons edui-default"><div id="edui241" class="edui-box edui-button edui-okbutton edui-default"><div id="edui241_state" onmousedown="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui241_body" unselectable="on" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui241&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui241&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default">确认</div></div></div></div></div><div id="edui242" class="edui-box edui-button edui-cancelbutton edui-default"><div id="edui242_state" onmousedown="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui242_body" unselectable="on" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui242&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui242&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default">取消</div></div></div></div></div></div></div></div></div></div><div id="edui130" class="edui-mask  edui-dialog-modalmask edui-default" onclick="return $EDITORUI[&quot;edui130&quot;]._onClick(event, this);" onmousedown="return $EDITORUI[&quot;edui130&quot;]._onMouseDown(event, this);" style="display: none;"></div><div id="edui131" class="edui-mask  edui-dialog-dragmask edui-default" onclick="return $EDITORUI[&quot;edui131&quot;]._onClick(event, this);" onmousedown="return $EDITORUI[&quot;edui131&quot;]._onMouseDown(event, this);" style="display: none;"></div><div id="edui281" class="edui-popup  edui-bubble edui-default" onmousedown="return false;" style="display: none;"> <div id="edui281_body" class="edui-popup-body edui-default"> <iframe style="position:absolute;z-index:-1;left:0;top:0;background-color: transparent; height: 500px" frameborder="0" width="100%"  src="about:blank" class="edui-default"></iframe> <div class="edui-shadow edui-default"></div> <div id="edui281_content" class="edui-popup-content edui-default">  </div> </div></div></div><div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;"><object id="global-zeroclipboard-flash-bridge" name="global-zeroclipboard-flash-bridge" width="100%" height="100%" type="application/x-shockwave-flash" data="http://localhost:8080/js/utf8-jsp/third-party/zeroclipboard/ZeroClipboard.swf?noCache=1505498290970"><param name="allowScriptAccess" value="sameDomain"><param name="allowNetworking" value="all"><param name="menu" value="false"><param name="wmode" value="transparent"><param name="flashvars" value="trustedOrigins=localhost%3A8080%2C%2F%2Flocalhost%3A8080%2Chttp%3A%2F%2Flocalhost%3A8080"></object></div></body></html>
+<div id="edui_fixedlayer" class="edui-default" style="position: fixed; left: 0px; top: 0px; width: 0px; height: 0px;"><div id="edui239" class="edui-dialog edui-for-snapscreen edui-default" style="display: none;"><div class="edui-dialog edui-for-snapscreen edui-default"><div id="edui239_body" class="edui-dialog-body edui-default"><div class="edui-dialog-shadow edui-default"></div><div id="edui239_titlebar" class="edui-dialog-titlebar edui-default"><div class="edui-dialog-draghandle edui-default" onmousedown="$EDITORUI[&quot;edui239&quot;]._onTitlebarMouseDown(event, this);"><span class="edui-dialog-caption edui-default">截图</span></div><div id="edui240" class="edui-box edui-button edui-dialog-closebutton edui-default"><div id="edui240_state" onmousedown="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui240_body" unselectable="on" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui240&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui240&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div></div><div id="edui239_content" class="edui-dialog-content edui-default"></div><div class="edui-dialog-foot edui-default"><div id="edui239_buttons" class="edui-dialog-buttons edui-default"><div id="edui241" class="edui-box edui-button edui-okbutton edui-default"><div id="edui241_state" onmousedown="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui241_body" unselectable="on" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui241&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui241&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default">确认</div></div></div></div></div><div id="edui242" class="edui-box edui-button edui-cancelbutton edui-default"><div id="edui242_state" onmousedown="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseOut(event, this);" class="edui-default"><div class="edui-button-wrap edui-default"><div id="edui242_body" unselectable="on" class="edui-button-body edui-default" onmousedown="return $EDITORUI[&quot;edui242&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui242&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default">取消</div></div></div></div></div></div></div></div></div></div><div id="edui130" class="edui-mask  edui-dialog-modalmask edui-default" onclick="return $EDITORUI[&quot;edui130&quot;]._onClick(event, this);" onmousedown="return $EDITORUI[&quot;edui130&quot;]._onMouseDown(event, this);" style="display: none;"></div><div id="edui131" class="edui-mask  edui-dialog-dragmask edui-default" onclick="return $EDITORUI[&quot;edui131&quot;]._onClick(event, this);" onmousedown="return $EDITORUI[&quot;edui131&quot;]._onMouseDown(event, this);" style="display: none;"></div><div id="edui281" class="edui-popup  edui-bubble edui-default" onmousedown="return false;" style="display: none;"> <div id="edui281_body" class="edui-popup-body edui-default"> <iframe style="position:absolute;z-index:-1;left:0;top:0;background-color: transparent; height: 500px" frameborder="0" width="100%"  src="about:blank" class="edui-default"></iframe> <div class="edui-shadow edui-default"></div> <div id="edui281_content" class="edui-popup-content edui-default">  </div> </div></div></div><div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;"><object id="global-zeroclipboard-flash-bridge" name="global-zeroclipboard-flash-bridge" width="100%" height="100%" type="application/x-shockwave-flash" data="http://localhost:8080/js/utf8-jsp/third-party/zeroclipboard/ZeroClipboard.swf?noCache=1505498290970"><param name="allowScriptAccess" value="sameDomain"><param name="allowNetworking" value="all"><param name="menu" value="false"><param name="wmode" value="transparent"><param name="flashvars" value="trustedOrigins=localhost%3A8080%2C%2F%2Flocalhost%3A8080%2Chttp%3A%2F%2Flocalhost%3A8080"></object></div>
+
+
+<script type="text/javascript">
+    $(document).ready( function() {
+        fetch("/category/categoryList").then(function (response) {
+            return response.json().then(function (json) {
+                for (i = 0; i < json.length; i++) {
+                    // do something more...
+					var j=i+1;
+                    $("#cate").append(
+                    "<option value='"+j+"'>"+json[i].categoryName+"</option>"
+                    )
+                }
+            });
+        })
+
+    })
+   $("#save").click(
+       function () {
+           var formData = new FormData();
+
+           // 请求参数 ('key',value)
+           formData.append('title', $("#title").val());
+           formData.append('content',UE.getEditor('editor').getContent());
+           formData.append('url',paths);
+           formData.append('categoryId',$("#cate").val())
+
+           fetch("/news/saveNews",{
+                   method:'POST',
+                   body:formData,
+               }).then(function (response)
+
+		   {
+               return response.json().then(function (json) {
+                   alert("创建成功")
+				   window.location.reload()
+               });
+           })
+       }
+   )
+</script>
+</body></html>

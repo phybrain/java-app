@@ -51,11 +51,20 @@ public class NewsController {
 
         return newsService.UpdateNews(news);
     }
+
+    @ResponseBody
+    @RequestMapping("/saveNews")
+    public int saveNews(News news){
+
+        return newsService.SaveNews(news);
+    }
+
     @RequestMapping(value = "/newsindex",method = RequestMethod.GET)
     public String hello(Model model) {
         model.addAttribute("hello", "spring");
         return "index";
     }
+
     @ResponseBody
     @RequestMapping(value="/upload", method = RequestMethod.POST)
     public  String uploadImg(@RequestParam("file") MultipartFile file) {
@@ -81,7 +90,7 @@ public class NewsController {
             return "上传失败"+e.getMessage();
         }
         //返回json
-        return "uploadimg success";
+        return "/upload/"+fileName;
     }
 
 
