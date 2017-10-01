@@ -57,13 +57,13 @@
 						</tbody></table>
 						<!--pages S-->
 						<div class="pageSelect">
-							<span>共 <b>188</b> 条 每页 <b>10 </b>条   1/18</span>
+							 每页 <b>10 </b>条   >
 							<div class="pageWrap">
-								<a class="pagePre"><i class="ico-pre">&nbsp;</i></a>
-								<a href="#" class="pagenumb cur">1</a>
-								<a href="#" class="pagenumb">2</a>
-								<a href="#" class="pagenumb">3</a>
-								<a href="#" class="pagenext"><i class="ico-next">&nbsp;</i></a>
+								<a class="pagePre" href="javascript:decrease()"><i class="ico-pre">&nbsp;</i></a>
+								<a href="javascript:gotopage(1)" class="pagenumb">1</a>
+								<a href="javascript:gotopage(2)" class="pagenumb">2</a>
+								<a href="javascript:gotopage(3)" class="pagenumb">3</a>
+								<a  class="pagenext" href="javascript:increase()"><i class="ico-next">&nbsp;</i></a>
 							</div>
 						</div>
 						<!--pages E-->
@@ -111,6 +111,7 @@
 
 	var pageSize="2";
 	var QAId="";
+	var page=1;
 
     function updateKnow(json){
         $(".layuiBg").css({
@@ -170,8 +171,8 @@
 
         fetch("/know/QAlist?pageNum="+pageNum+"&pageSize="+pageSize+"").then(function (response) {
             return response.json().then(function (json) {
-                $("#newstbody").html("")
-
+                page=pageNum;
+                $("#konwbody").html("")
                 for (i = 0; i < json.length; i++) {
                     // do something more...
 
@@ -191,6 +192,7 @@
     $(document).ready(function () {
 
 		changePage(1)
+		clickpage()
     })
 
     $("#saveKnow").click(
@@ -216,6 +218,38 @@
             })
         }
     )
+</script>
+<script type="text/javascript">
+	
+	function decrease() {
+	    if (page>1){
+	        page=page-1
+	        changePage(page)
+		}
+		clickpage()
+    }
+    function increase() {
+
+		page=page+1;
+		changePage(page)
+		clickpage()
+    }
+    function clickpage() {
+        $(".pagenumb").each(function(){
+            if ($(this).html()==page){
+                $(this).attr("class","pagenumb cur")
+			}
+			else {
+                $(this).attr("class","pagenumb")
+			}
+        });
+    }
+    function gotopage( a) {
+	    page=a
+		changePage(page)
+		clickpage(page)
+
+    }
 </script>
 
 
