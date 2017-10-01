@@ -28,5 +28,25 @@
         </if>
         order by starttime
     </select>
+    <select id="getUserLastSession" parameterType="int" resultMap="SessionInfo">
+            select
+            <include refid="SessionInfoRef"/>
+            from session
+            where 1=1
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+            order by starttime desc limit 1
+     </select>
+     <select id="getCSRecentSessions" parameterType="HashMap" resultMap="SessionInfo">
+                 select
+                 <include refid="SessionInfoRef"/>
+                 from session
+                 where 1=1
+                 <if test="csId!=null">
+                    and cs_id = #{csId}
+                 </if>
+                 order by starttime desc limit #{pageSize}
+     </select>
 
 </mapper>
