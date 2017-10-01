@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.bianming.javaapp.mapper.RecordMapper">
+    <resultMap id="RecordInfo" type="team.bianming.javaapp.entity.RecordInfo">
+        <result property="id" column="id"/>
+        <result property="sessionId" column="session_id"/>
+        <result property="senderType" column="sender_type"/>
+        <result property="sendtime" column="sendtime"/>
+        <result property="acceptId" column="accept_id"/>
+        <result property="senderId" column="sender_id"/>
+    </resultMap>
+
+
+    <sql id="RecordInfoRef">
+        id,session_id,sender_type,sendtime,accept_id,sender_id
+    </sql>
+
+    <select id="getRecords" parameterType="HashMap" resultMap="RecordInfo">
+        select
+        <include refid="RecordInfoRef"/>
+        from record
+        where 1=1
+        <if test="sessionId!=null">
+            and session_id = #{sessionId}
+        </if>
+        <if test="senderType!=null">
+            and sender_type = #{senderType}
+        </if>
+        <if test="sendtime!=null">
+            and sendtime = #{sendtime}
+        </if>
+        <if test="accepterId!=null">
+            and accepter_id=#{accepterId}
+        </if>
+        <if test="senderId!=null">
+            and sender_id=#{senderId}
+        </if>
+        order by session_id
+    </select>
+
+</mapper>
