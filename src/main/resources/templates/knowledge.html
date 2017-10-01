@@ -26,7 +26,7 @@
 			<div class="ctab-Main">
 				<div class="ctab-Main-title">
 					<ul class="clearfix">
-						<li class="cur"><a href="huodong_guanli.html">知识库管理</a></li>
+						<li class="cur"><a href="">知识库管理</a></li>
 						
 					</ul>
 				</div>
@@ -47,22 +47,12 @@
 					<div class="Mian-cont-wrap">
 						<div class="defaultTab-T">
 							<table border="0" cellspacing="0" cellpadding="0" class="defaultTable">
-								<tbody><tr><th class="t_1">知识ID</th><th class="t_2_1">知识内容</th><th class="t_3">发布时间</th><th class="t_5">对应问题</th><th class="t_4">操作</th></tr>
+								<tbody><tr><th class="t_1">知识ID</th><th class="t_2_1">知识内容</th><th class="t_5">对应问题</th><th class="t_4">操作</th></tr>
 							</tbody></table>
 						</div>
 						<table border="0" cellspacing="0" cellpadding="0" class="defaultTable defaultTable2">
-							<tbody><tr>
-								<td class="t_1">20150084</td>
-								<td class="t_2_1"><a href="huodong_content.html">平安好医生与平安银行开启全面战略合作</a></td>
-								<td class="t_3">2015-12-01</td>
-								<td class="t_5">本站原创</td>
-								<td class="t_4"><div class="btn"><a href="#" class="modify">修改</a><a href="#" class="delete">删除</a></div></td>
-							</tr>
-							
-							
-							
-							
-							
+							<tbody id="konwbody">
+
 							
 						</tbody></table>
 						<!--pages S-->
@@ -89,33 +79,21 @@
 	<div class="layuiBg" style="display: none; height: 862px;"></div><!--公共遮罩-->
 	<!--点击添加分类弹出-->
 	<div class="addFeileibox layuiBox">
-		<div class="layer-title clearfix"><h2>添加分类</h2><span class="layerClose"></span></div>
+		<div class="layer-title clearfix"><h2>添加知识</h2><span class="layerClose"></span></div>
 		<div class="layer-content">
-			<div class="aFllink clearfix" style="margin-top: 38px;"><span>二级栏目：</span><input type="text" value=""></div>
-			<div class="aFlBtn"><input type="button" value="保存" class="saveBtn"></div>
+			<div class="aFllink clearfix" style="margin-top: 38px;"><span>知识内容：</span><input id="question" type="text" value=""></div>
+			<div class="aFllink clearfix" style="margin-top: 38px;"><span>对应问题：</span><input id="answer" type="text" value=""></div>
+			<div class="aFlBtn"><input type="button" value="保存" class="saveBtn" id="saveKnow"></div>
 		</div>
 	</div>
 	<!--栏目管理-->
-	<div class="Columnbox hdColumnbox layuiBox" style="left: 109.5px; top: 215.5px; display: none;">
-		<div class="layer-title clearfix"><h2>栏目管理</h2><span class="layerClose"></span></div>
+	<div class="Columnbox hdColumnbox layuiBox" style="left: 109.5px; top: 215.5px; display: none; width: 450px">
+
+		<div class="layer-title clearfix"><h2>修改</h2><span class="layerClose"></span></div>
 		<div class="layer-content">
-			<ul class="colu-title clearfix">
-				<li class="li-1">栏目名称</li><li class="li-2">英文名称</li><li class="li-5">栏目类型</li><li class="li-3">操作</li><li class="li-4">同步开关</li>
-			</ul>
-			<div class="colu-list">
-				<ul class="colu-cont clearfix active">
-					<li class="li-1"><i class="ico"></i>活动发布</li><li class="li-2">English</li><li class="li-5">列表页</li><li class="li-3"><a href="javascript:;" class="colu-xg">修改</a></li><li class="li-4"><input type="checkbox" id="checkbox_d1" class="chk_4"><label for="checkbox_d1"></label></li>
-				</ul>
-				<div class="colunext" style="display: block;">
-					<ul class="colu-next clearfix">
-						<li class="li-1"><i class="ico"></i>公司活动</li><li class="li-2"></li><li class="li-5">列表页</li><li class="li-3"><a href="javascript:;" class="colu-xg">修改</a></li>
-					</ul>
-					<ul class="colu-next clearfix">
-						<li class="li-1"><i class="ico"></i>团队活动</li><li class="li-2"></li><li class="li-5">列表页</li><li class="li-3"><a href="javascript:;" class="colu-xg">修改</a></li>
-					</ul>
-				</div>
-			</div><!--新闻动态-->
-			
+			<div class="aFllink clearfix" style="margin-top: 38px;"><span>知识内容：</span><input type="text" id="questionNew" value=""></div>
+			<div class="aFllink clearfix" style="margin-top: 38px;"><span>对应问题：</span><input type="text" id="answerNew" value=""></div>
+			<div class="aFlBtn"><input type="button" value="保存" class="saveBtn" id="updateKnow"></div>
 		</div>
 	</div>
 	<!--栏目管理－修改-->
@@ -129,6 +107,116 @@
 	</div>
 
 
+<script type="text/javascript">
+
+	var pageSize="2";
+	var QAId="";
+
+    function updateKnow(json){
+        $(".layuiBg").css({
+            display:"block",height:$(document).height()
+        });
+        $(".Columnbox").css({
+            left:($("body").width()-$(".Columnbox").width())/2-20+"px",
+            top:($(window).height()-$(".Columnbox").height())/2+$(window).scrollTop()+"px",
+            display:"block"
+        });
+
+        QAId=json.id
+        $("#questionNew").attr("value",json.question);
+        $("#answerNew").attr("value",json.answer);
+
+    };
+
+    function deleteKnow(Id) {
+
+        fetch("/know/deleteKnow?id="+Id).then(function (response) {
+            return response.json().then(function (json) {
+
+                alert("删除成功"+json)
+
+                window.location.reload()
+            });
+        })
+    }
+
+    $("#updateKnow").click(
+        function () {
+            var formData = new FormData();
+
+            // 请求参数 ('key',value)
+            formData.append('question', $("#questionNew").val());
+            formData.append('answer',$("#answerNew").val());
+            formData.append('id',QAId);
+
+            fetch("/know/updateKnow",{
+                method:'POST',
+                body:formData,
+
+            }).then(function (response)
+
+            {
+                return response.json().then(function (json) {
+                    alert("修改成功")
+                    window.location.reload()
+                });
+            })
+        }
+    )
+
+
+
+    function changePage(pageNum){
+
+        fetch("/know/QAlist?pageNum="+pageNum+"&pageSize="+pageSize+"").then(function (response) {
+            return response.json().then(function (json) {
+                $("#newstbody").html("")
+
+                for (i = 0; i < json.length; i++) {
+                    // do something more...
+
+                    $("#konwbody").append("<tr>"+
+                    "<td class='t_1'>"+json[i].id+"</td>"+
+                       " <td class='t_2_1'><a href=''>"+json[i].question+"</a></td>"+
+                       "<td class='t_5'>"+json[i].answer+"</td>"+
+                      "<td class='t_4'><div class='btn'><a href='javascript:updateKnow("+JSON.stringify(json[i])+")'class='modify'>修改</a><a href='javascript:deleteKnow("+json[i].id+")'class='delete'>删除</a></div></td>"+
+                        "</tr>"
+                    )
+                }
+            });
+        })
+
+    }
+
+    $(document).ready(function () {
+
+		changePage(1)
+    })
+
+    $("#saveKnow").click(
+        function () {
+            var formData = new FormData();
+
+            // 请求参数 ('key',value)
+            formData.append('question', $("#question").val());
+            formData.append('answer',$("#answer").val());
+
+
+            fetch("/know/saveKnow",{
+                method:'POST',
+                body:formData,
+
+            }).then(function (response)
+
+            {
+                return response.json().then(function (json) {
+                    alert("添加成功")
+                    window.location.reload()
+                });
+            })
+        }
+    )
+</script>
 
 
 </body></html>

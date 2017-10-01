@@ -44,13 +44,13 @@ public class PageController {
         return "kefuguanli";
     }
 
-    @RequestMapping("/admin/login.html")
+    @RequestMapping("/loginAdmin.html")
     public String loginAdmin(){
 
         return "loginAdmin";
     }
 
-    @RequestMapping("/CS/login.html")
+    @RequestMapping("/loginCS.html")
     public String loginCS(){
 
         return "login_kefu";
