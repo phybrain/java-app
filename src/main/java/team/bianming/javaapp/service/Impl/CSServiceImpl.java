@@ -1,8 +1,9 @@
-package team.bianming.javaapp.service.Impl;
+package team.bianming.javaapp.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import team.bianming.javaapp.entity.CustomService;
 import team.bianming.javaapp.entity.SessionInfo;
 import team.bianming.javaapp.mapper.CustomServiceMapper;
@@ -16,6 +17,8 @@ import java.util.Map;
 /**
  * Created by xiaopeng on 2017/8/29.
  */
+
+@Service("CSService")
 public class CSServiceImpl implements CSService {
 
     @Autowired
@@ -57,5 +60,10 @@ public class CSServiceImpl implements CSService {
         map.put("pageSize",Size);
         map.put("csId",customService.getId());
         return sessionMapper.getCSRecentSessions(map);
+    }
+
+    @Override
+    public CustomService findByNum(String num) {
+        return customServiceMapper.getByNum(num);
     }
 }

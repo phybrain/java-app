@@ -34,10 +34,6 @@
 						<li class="cur"><a href="tupian_yd_index.html">客服管理</a></li>
 						<li><a href="tupian_yd_jzg.html">聊天记录管理</a></li>
 						
-						
-						
-						
-						
 					</ul>
 				</div>
 				
@@ -45,27 +41,15 @@
 					<div class="Mian-cont-btn tp-cnt-btn clearfix">
 						
 						<div class="operateBtn">
-							<a href="javascript:;" class="greenbtn add sp-photo">添加客服<input id="fileImage" class="fileImgtp" type="file" size="30" name="fileselect[]" multiple=""></a>
+							<a href="javascript:;" class="greenbtn add sp-photo">添加客服<input id="fileImage" class="fileImgtp" type="file" size="30" name="fileselect[]" multiple/></a>
 						</div>
 					</div>
 					
 					<div class="xc-all-box clearfix">
-						<div class="xc-list tp-list">
-							<div class="img"><a href="#"><img src="images/img_xc_bg.jpg"></a></div>
-							<div class="info clearfix">
-								<h3 style="display: block;">客服名称</h3>
+					<!--客服-->
 
-							</div>
-							<div class="input">
-								<input type="text" class="txt txtbiaoti" style="display: inline-block;">
-								<h4>工作时间段</h4>
-								<input type="time" class="txt">
-							</div>
-							<div class="btn clearfix"><a href="#" class="xc-bc-a">保存</a><a href="#" class="xc-delete-a">删除</a></div>
-						</div>
 
-						
-						
+
 						<div id="preview"></div>
 					</div>
 					
@@ -153,6 +137,112 @@
 	</div>
 
 
+<script>
+
+	var item = '<div class="xc-list tp-list"><div class="img"><a href="#"><img  src="${head}" class="upload_image"/></a></div>'+
+						'<div class="input">'+
+							'<div class="info clearfix"><h3>客服工号</h3></div>'+'<input type="text" class="txt txtbiaoti"  value="${num}"/>'+
+							'<div class="info clearfix"><h3>客服名称</h3></div>'+'<input type="text" class="txt txtbiaoti" value="${name}" />'+
+							'<div class="info clearfix"><h3>工作日</h3></div>'+'<input type="text" class="txt txtbiaoti" value="${weekdays}" />'+
+							'<div class="info clearfix"><h3>工作时间</h3></div>'+'<input type="time" class="txt" style="width:45%" value="${time1}" />'+'-'+'<input type="time" class="txt" style="width:45%" value="${time2}"/>'+
+						'</div>'+
+						'<div class="btn clearfix"><a href="#" class="xc-bc-a" onclick="save(this)">保存</a><a href="#" class="xc-delete-a upload_delete" href="javascript:" title="删除" >删除</a></div>' +
+				'</div>';
+
+
+	function setPage(pageNum,pageSize){
+		$.ajax({
+                url:'/cs/getPage?pageNum='+pageNum+'&pageSize='+pageSize,
+                type:"GET",
+                contentType:false,
+                success:function(data){
+                    var node = $("#preview");
+                    for(var i=0;i<data.length;i++){
+                    	appendItem(node,data[i]);
+                    }
+                },
+                error:function(e){
+                    alert("错误！！");
+                    window.clearInterval(timer);
+                }
+            });
+	}
+
+	function appendItem(domNode,obj){
+		var toAppend = item;
+		toAppend = toAppend.replace("${num}",obj.num);
+		toAppend = toAppend.replace("${name}",obj.name);
+		toAppend = toAppend.replace("${weekdays}",obj.weekday);
+		time12 = obj.time.split('-');
+		toAppend = toAppend.replace("${time1}",time12[0]);
+		toAppend = toAppend.replace("${time2}",time12[1]);
+		toAppend = toAppend.replace("${head}","/head/"+obj.num+"jpg");
+		$('#preview').append(toAppend);
+	}
+
+	function save(ele){
+		ele = $(ele)
+		var form = new FormData();
+        form.append('file',$("#fileImage")[0].files[0])
+		form.append('num',ele.parent().prev().children()[1].value)
+		form.append('name',ele.parent().prev().children()[3].value)
+		form.append('weekdays',ele.parent().prev().children()[5].value)
+		form.append('time',ele.parent().prev().children()[7].value+ele.parent().prev().children()[8].value)
+
+		<!--file = $("#fileImage")[0].files[0]-->
+		<!--var reg = /^(\d[,])*(\d)$/;-->
+		<!--if(num==""){-->
+			<!--alert("工号不能为空");-->
+			<!--return-->
+		<!--}-->
+		<!--if(name==""){-->
+			<!--alert("姓名不能为空");-->
+			<!--return-->
+		<!--}-->
+
+		<!--if(weekdays == ""){-->
+			<!--alert("请指定工作日，若没有则填0")-->
+			<!--return-->
+		<!--}else{-->
+			<!--if(!reg.exec(weekdays)){-->
+				<!--alert("工作日的格式要为使用逗号分隔的数字")-->
+				<!--return-->
+			<!--}-->
+		<!--}-->
+
+		<!--if(time1=="&#45;&#45;:&#45;&#45;"){-->
+			<!--alert("请指定工作开始时间")-->
+			<!--return-->
+		<!--}-->
+		<!--if(time2=="&#45;&#45;:&#45;&#45;"){-->
+			<!--alert("请指定工作结束时间")-->
+			<!--return-->
+		<!--}-->
+
+		$.ajax({
+                url:"/cs/create",
+                type:"POST",
+                data:form,
+                cache:false,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    paths=data
+                   alert("成功上传")
+
+                },
+                error:function(e){
+                    alert("错误！！");
+                    window.clearInterval(timer);
+                }
+            });
+
+	}
+</script>
+<script>
+	setPage(1,3);
+</script>
+
 <script type="text/javascript" src="js/zxxFile.js"></script>
 <script>
 var params = {
@@ -182,10 +272,14 @@ var params = {
 			if (file) {
 				var reader = new FileReader()
 				reader.onload = function(e) {
-					html = html + '<div class="xc-list tp-list"><div class="img"><a href="#"><img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image"/></a></div>'+ 
-						'<div class="info clearfix"><h3>客服名称</h3></div>'+
-						'<div class="input"><input type="text" class="txt txtbiaoti" value="' + file.name + '" /><h4>工作时间</h4><input type="text" class="txt" /></div>'+
-						'<div class="btn clearfix"><a href="#" class="xc-bc-a">保存</a><a href="#" class="xc-delete-a upload_delete" href="javascript:" title="删除" data-index="'+ i +'">删除</a></div>' +
+					html = html + '<div class="xc-list tp-list"><div class="img"><a href="#"><img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image"/></a></div>'+
+						'<div class="input">'+
+							'<div class="info clearfix"><h3>客服工号</h3></div>'+'<input type="text" class="txt txtbiaoti" value="" />'+
+							'<div class="info clearfix"><h3>客服名称</h3></div>'+'<input type="text" class="txt txtbiaoti" value="' + file.name + '" />'+
+							'<div class="info clearfix"><h3>工作日</h3></div>'+'<input type="text" class="txt txtbiaoti" value="" />'+
+							'<div class="info clearfix"><h3>工作时间</h3></div>'+'<input type="time" class="txt" style="width:45%"/>'+'-'+'<input type="time" class="txt" style="width:45%"/>'+
+						'</div>'+
+						'<div class="btn clearfix"><a href="#" class="xc-bc-a" onclick="save(this)">保存</a><a href="#" class="xc-delete-a upload_delete" href="javascript:" title="删除" data-index="'+ i +'">删除</a></div>' +
 					'</div>';
 					i++;
 					funAppendImage();
@@ -243,6 +337,9 @@ var params = {
 };
 ZXXFILE = $.extend(ZXXFILE, params);
 ZXXFILE.init();
+
+
+
 
 </script>
 

@@ -1,4 +1,4 @@
-package team.bianming.javaapp.service.Impl;
+package team.bianming.javaapp.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
