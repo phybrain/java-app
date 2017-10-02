@@ -76,11 +76,11 @@
 						<div class="pageSelect">
 							<span> 每页 <b>10</b>条 </span>
 							<div class="pageWrap">
-								<a class="pagePre"><i class="ico-pre">&nbsp;</i></a>
+								<a class="pagePre" href="javascript:de()"><i class="ico-pre">&nbsp;</i></a>
 								<a id="page1" href="javascript:changePage(1)" class="pagenumb cur">1</a>
 								<a id="page2" href="javascript:changePage(2)" class="pagenumb">2</a>
 								<a id="page3" href="javascript:changePage(3)" class="pagenumb">3</a>
-								<a href="#" class="pagenext"><i class="ico-next">&nbsp;</i></a>
+								<a href="javascript:add()" class="pagenext"><i class="ico-next">&nbsp;</i></a>
 							</div>
 						</div>
 						<!--pages E-->
@@ -415,7 +415,16 @@ ZXXFILE.init();
 
             changeCate(categoryID)
         }
-
+        function de() {
+		    if(Page>=1) {
+                Page = Page - 1
+                changePage(Page)
+            }
+		}
+      function add() {
+          Page = Page+1
+          changePage(Page)
+      }
         function deletenews(newsId) {
 
             fetch("/news/deleteNews?id="+newsId).then(function (response) {

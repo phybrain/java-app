@@ -29,7 +29,7 @@ public interface UserMapper {
             @Result(column = "name", property = "name"),
             @Result(column = "password", property = "password"),
             @Result(column = "idcard", property = "idcard"),
-            @Result(column = "registerTime", property = "register_time")
+            @Result(column = "register_time", property = "registerTime")
     })
     public Page<User> selectAll();
 

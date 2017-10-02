@@ -2,7 +2,8 @@ package team.bianming.javaapp.entity;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 /**
  * Created by xiaopeng on 2017/8/29.

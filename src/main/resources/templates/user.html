@@ -38,20 +38,14 @@
 						</tbody></table>
 				</div>
 				<table border="0" cellspacing="0" cellpadding="0" class="defaultTable defaultTable2">
-					<tbody><tr>
-						<td class="td_6">20150084</td>
-						<td class="td_7"><a href="#">太平洋人寿保险频道</a></td>
-						<td class="td_8">158</td>
-						<td class="td_9">1141</td>
-						<td class="td_10"><div class="btn"><a href="javascript:;" class="modify cg-xiugai-a">修改</a></div></td>
-					</tr>
-					<tr>
-						<td class="td_6">20150084</td>
-						<td class="td_7"><a href="#">太平洋人寿保险频道</a></td>
-						<td class="td_8"><a href="#" class="txdoc">158</a></td>
-						<td class="td_9"><a href="super_cg_PinDao.html" class="txdoc">1141</a></td>
-						<td class="td_10"><div class="btn"><a href="javascript:;" class="modify cg-xiugai-a">修改</a></div></td>
-					</tr>
+					<tbody id="userbody">
+					<!--<tr>-->
+						<!--<td class="td_6">20150084</td>-->
+						<!--<td class="td_7"><a href="#">太平洋人寿保险频道</a></td>-->
+						<!--<td class="td_8">158</td>-->
+						<!--<td class="td_9">1141</td>-->
+						<!--<td class="td_10"><div class="btn"><a href="javascript:;" class="modify cg-xiugai-a">修改</a></div></td>-->
+					<!--</tr>-->
 
 
 
@@ -62,13 +56,13 @@
 					</tbody></table>
 				<!--pages S-->
 				<div class="pageSelect">
-					<span>共 <b>188</b> 条 每页 <b>10 </b>条   1/18</span>
+					每页 <b>10 </b>条   >
 					<div class="pageWrap">
-						<a class="pagePre"><i class="ico-pre">&nbsp;</i></a>
-						<a href="#" class="pagenumb cur">1</a>
-						<a href="#" class="pagenumb">2</a>
-						<a href="#" class="pagenumb">3</a>
-						<a href="#" class="pagenext"><i class="ico-next">&nbsp;</i></a>
+						<a class="pagePre" href="javascript:decrease()"><i class="ico-pre">&nbsp;</i></a>
+						<a href="javascript:gotopage(1)" class="pagenumb">1</a>
+						<a href="javascript:gotopage(2)" class="pagenumb">2</a>
+						<a href="javascript:gotopage(3)" class="pagenumb">3</a>
+						<a  class="pagenext" href="javascript:increase()"><i class="ico-next">&nbsp;</i></a>
 					</div>
 				</div>
 				<!--pages E-->
@@ -149,6 +143,139 @@
 	</div>
 </div>
 
+
+
+<script type="text/javascript">
+
+    var pageSize="2";
+    var userId="";
+    var page=1;
+
+
+
+    function deleteUser(Id) {
+
+        fetch("/user/deleteUser?id="+Id).then(function (response) {
+            return response.json().then(function (json) {
+
+                alert("删除成功"+json)
+
+                window.location.reload()
+            });
+        })
+    }
+
+    $("#updateUser").click(
+        function () {
+            var formData = new FormData();
+
+            // 请求参数 ('key',value)
+            formData.append('question', $("#questionNew").val());
+            formData.append('answer',$("#answerNew").val());
+            formData.append('id',QAId);
+
+            fetch("/know/updateKnow",{
+                method:'POST',
+                body:formData,
+
+            }).then(function (response)
+
+            {
+                return response.json().then(function (json) {
+                    alert("修改成功")
+                    window.location.reload()
+                });
+            })
+        }
+    )
+
+
+
+    function changePage(pageNum){
+
+        fetch("/user/userList?pageNum="+pageNum+"&pageSize="+pageSize+"").then(function (response) {
+            return response.json().then(function (json) {
+                page=pageNum;
+                $("#userbody").html("")
+                for (i = 0; i < json.length; i++) {
+                    // do something more...
+
+                    $("#userbody").append("<tr>"+
+                        "<td class='td_6'>"+json[i].id+"</td>"+
+                        " <td class='td_7'><a href=''>"+json[i].name+"</a></td>"+
+                        "<td class='td_8' >"+json[i].idcard+"</td>"+
+                        "<td class='td_9' >"+json[i].registerTime+"</td>"+
+                        "<td class='td_10'><div class='btn'><a href='javascript:deleteUser("+json[i].id+")'class='delete'>删</a></div></td>"+
+                        "</tr>"
+                    )
+                }
+            });
+        })
+
+    }
+
+    $(document).ready(function () {
+
+        changePage(1)
+        clickpage()
+    })
+
+    $("#saveKnow").click(
+        function () {
+            var formData = new FormData();
+
+            // 请求参数 ('key',value)
+            formData.append('question', $("#question").val());
+            formData.append('answer',$("#answer").val());
+
+
+            fetch("/know/saveKnow",{
+                method:'POST',
+                body:formData,
+
+            }).then(function (response)
+
+            {
+                return response.json().then(function (json) {
+                    alert("添加成功")
+                    window.location.reload()
+                });
+            })
+        }
+    )
+</script>
+<script type="text/javascript">
+
+    function decrease() {
+        if (page>1){
+            page=page-1
+            changePage(page)
+        }
+        clickpage()
+    }
+    function increase() {
+
+        page=page+1;
+        changePage(page)
+        clickpage()
+    }
+    function clickpage() {
+        $(".pagenumb").each(function(){
+            if ($(this).html()==page){
+                $(this).attr("class","pagenumb cur")
+            }
+            else {
+                $(this).attr("class","pagenumb")
+            }
+        });
+    }
+    function gotopage( a) {
+        page=a
+        changePage(page)
+        clickpage(page)
+
+    }
+</script>
 
 
 </body></html>
