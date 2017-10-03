@@ -47,4 +47,15 @@ public interface CustomServiceMapper {
 
     @Delete("delete from custom_service where id=#{id}")
     public int delete(int id);
+
+    @Select("select * from custom_service where num=#{num}")
+    @Results({ @Result(id = true, column = "id", property = "id"),
+            @Result(column = "name", property = "name"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "time", property = "time"),
+            @Result(column = "weekday", property = "weekday"),
+            @Result(column = "num", property = "num"),
+
+    })
+    public CustomService getByNum(String num);
 }

@@ -1,4 +1,4 @@
-package team.bianming.javaapp.service.Impl;
+package team.bianming.javaapp.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
