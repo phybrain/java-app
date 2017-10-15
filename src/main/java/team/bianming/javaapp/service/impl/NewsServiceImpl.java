@@ -1,4 +1,4 @@
-package team.bianming.javaapp.service.impl;
+package team.bianming.javaapp.service.Impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -38,6 +38,4 @@ public class NewsServiceImpl implements NewsService{
     public int UpdateNews(News news) {
         return newsMapper.update(news);
     }
-
-
 }

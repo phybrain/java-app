@@ -26,6 +26,13 @@ public class QAController {
     }
 
     @ResponseBody
+    @RequestMapping("/searchQAlist")
+    public Page<QA> ListQA(int pageSize, int pageNum,String s) {
+
+        return qaService.findQAByPage(pageNum,pageSize);
+    }
+
+    @ResponseBody
     @RequestMapping("/deleteKnow")
     public int deleteQA(QA qa){
 

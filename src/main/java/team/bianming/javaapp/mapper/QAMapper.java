@@ -12,6 +12,13 @@ import team.bianming.javaapp.entity.QA;
 @Mapper
 public interface QAMapper {
 
+    @Select("select * from qa where question like %#{s}% or answer like %#{s}%")
+    @Results({@Result(id = true, column = "id", property = "id"),
+            @Result(column = "question", property = "question"),
+            @Result(column = "answer", property = "answer"),
+    })
+    public Page<QA> selectAllbyS(String s);
+
     @Select("select * from qa where id=#{id}")
     @Results({ @Result(id = true, column = "id", property = "id"),
             @Result(column = "question", property = "question"),

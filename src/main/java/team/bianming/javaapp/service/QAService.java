@@ -12,4 +12,5 @@ public interface QAService {
     public int DeleteQA(QA qa);
     public int SaveQA (QA qa);
     public int UpdateQA(QA qa);
+    public Page<QA> findQAByPageandS(int pageNum, int pageSize,String s);
 }

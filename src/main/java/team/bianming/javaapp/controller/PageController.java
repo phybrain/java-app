@@ -72,4 +72,26 @@ public class PageController {
 
         return "work_statistics";
     }
+    @RequestMapping("/public_left_kefu.html")
+    public String PublicLeftCS(){
+
+        return "public_left_kefu";
+    }
+
+    @RequestMapping("/csknowledge.html")
+    public String knowledgecs(){
+
+        return "csknowledge";
+    }
+    @RequestMapping("/csindex.html")
+    public String csindex(){
+
+        return "csindex";
+    }
+
+    @RequestMapping("/cs_header.html")
+    public String csHeader(){
+
+        return "/cs_header";
+    }
 }

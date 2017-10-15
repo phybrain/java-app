@@ -37,4 +37,10 @@ public class QAServiceImpl implements QAService {
     public int UpdateQA(QA qa) {
         return qaMapper.update(qa);
     }
+
+    @Override
+    public Page<QA> findQAByPageandS(int pageNum, int pageSize, String s) {
+        PageHelper.startPage(pageNum,pageSize);
+        return qaMapper.selectAllbyS(s);
+    }
 }

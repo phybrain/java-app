@@ -1,0 +1,279 @@
+<html class=" js csstransforms3d js csstransforms3d js csstransforms3d"><head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>知识库</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/page.css">
+	<!--[if lte IE 8]>
+	<link href="css/ie8.css" rel="stylesheet" type="text/css"/>
+	<![endif]-->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/modernizr.js"></script>
+	<!--[if IE]>
+	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body style="background: #f6f5fa;">
+
+	<!--content S-->
+	<div class="super-content">
+		<div class="superCtab">
+			<div class="ctab-title clearfix"><h3>知识库</h3><a href="javascript:;" class="sp-column"><i class="ico-mng"></i>AI管理</a></div>
+			
+			<div class="ctab-Main">
+				<div class="ctab-Main-title">
+					<ul class="clearfix">
+						<li class="cur"><a href="">知识库</a></li>
+						
+					</ul>
+				</div>
+				
+				<div class="ctab-Mian-cont">
+					<div class="Mian-cont-btn clearfix">
+						<div class="operateBtn">
+							
+							<!--<a href="javascript:;" class="greenbtn add sp-add">添加新知识</a>-->
+						</div>
+						<div class="searchBar">
+							<input type="text" id="s" value="" class="form-control srhTxt" placeholder="输入关键字搜索" style="width: 350px; height: 35px;">
+							<input type="button" id="search" onclick="findQAbys()" class="srhBtn" value="">
+						</div>
+					</div>
+					
+					
+					<div class="Mian-cont-wrap">
+						<div class="defaultTab-T">
+							<table border="0" cellspacing="0" cellpadding="0" class="defaultTable">
+								<tbody><tr><th class="t_1">知识ID</th><th class="t_4">知识内容</th><th class="t_5">对应问题</th></tr>
+							</tbody></table>
+						</div>
+						<table border="0" cellspacing="0" cellpadding="0" class="defaultTable defaultTable2">
+							<tbody id="konwbody">
+
+							
+						</tbody></table>
+						<!--pages S-->
+						<div class="pageSelect">
+							 每页 <b>10 </b>条   >
+							<div class="pageWrap">
+								<a class="pagePre" href="javascript:decrease()"><i class="ico-pre">&nbsp;</i></a>
+								<a href="javascript:gotopage(1)" class="pagenumb">1</a>
+								<a href="javascript:gotopage(2)" class="pagenumb">2</a>
+								<a href="javascript:gotopage(3)" class="pagenumb">3</a>
+								<a  class="pagenext" href="javascript:increase()"><i class="ico-next">&nbsp;</i></a>
+							</div>
+						</div>
+						<!--pages E-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--main-->
+		
+	</div>
+	<!--content E-->
+	<!--点击修改弹出层-->
+	<div class="layuiBg" style="display: none; height: 862px;"></div><!--公共遮罩-->
+	<!--点击添加分类弹出-->
+	<div class="addFeileibox layuiBox">
+		<div class="layer-title clearfix"><h2>添加知识</h2><span class="layerClose"></span></div>
+		<div class="layer-content">
+			<div class="aFllink clearfix" style="margin-top: 38px;"><span>知识内容：</span><input id="question" type="text" value=""></div>
+			<div class="aFllink clearfix" style="margin-top: 38px;"><span>对应问题：</span><input id="answer" type="text" value=""></div>
+			<div class="aFlBtn"><input type="button" value="保存" class="saveBtn" id="saveKnow"></div>
+		</div>
+	</div>
+	<!--栏目管理-->
+	<div class="Columnbox hdColumnbox layuiBox" style="left: 109.5px; top: 215.5px; display: none; width: 450px">
+
+		<div class="layer-title clearfix"><h2>修改</h2><span class="layerClose"></span></div>
+		<div class="layer-content">
+			<div class="aFllink clearfix" style="margin-top: 38px;"><span>知识内容：</span><input type="text" id="questionNew" value=""></div>
+			<div class="aFllink clearfix" style="margin-top: 38px;"><span>对应问题：</span><input type="text" id="answerNew" value=""></div>
+			<div class="aFlBtn"><input type="button" value="保存" class="saveBtn" id="updateKnow"></div>
+		</div>
+	</div>
+	<!--栏目管理－修改-->
+	<div class="ColumnXgbox layuiBox">
+		<div class="layer-title clearfix"><h2>添加分类</h2><span class="layerClose"></span></div>
+		<div class="layer-content">
+			<div class="aFllink clearfix"><span>修改名称：</span><input type="text" value=""></div>
+			<div class="aFllink clearfix"><span>英文名称：</span><input type="text" value=""></div>
+			<div class="aFlBtn"><input type="button" value="保存" class="saveBtn"></div>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+
+	var pageSize="2";
+	var QAId="";
+	var page=1;
+
+    function updateKnow(json){
+        $(".layuiBg").css({
+            display:"block",height:$(document).height()
+        });
+        $(".Columnbox").css({
+            left:($("body").width()-$(".Columnbox").width())/2-20+"px",
+            top:($(window).height()-$(".Columnbox").height())/2+$(window).scrollTop()+"px",
+            display:"block"
+        });
+
+        QAId=json.id
+        $("#questionNew").attr("value",json.question);
+        $("#answerNew").attr("value",json.answer);
+
+    };
+
+    function deleteKnow(Id) {
+
+        fetch("/know/deleteKnow?id="+Id).then(function (response) {
+            return response.json().then(function (json) {
+
+                alert("删除成功"+json)
+
+                window.location.reload()
+            });
+        })
+    }
+
+    $("#updateKnow").click(
+        function () {
+            var formData = new FormData();
+
+            // 请求参数 ('key',value)
+            formData.append('question', $("#questionNew").val());
+            formData.append('answer',$("#answerNew").val());
+            formData.append('id',QAId);
+
+            fetch("/know/updateKnow",{
+                method:'POST',
+                body:formData,
+
+            }).then(function (response)
+
+            {
+                return response.json().then(function (json) {
+                    alert("修改成功")
+                    window.location.reload()
+                });
+            })
+        }
+    )
+
+
+
+    function changePage(pageNum){
+
+        fetch("/know/QAlist?pageNum="+pageNum+"&pageSize="+pageSize+"").then(function (response) {
+            return response.json().then(function (json) {
+                page=pageNum;
+                $("#konwbody").html("")
+                for (i = 0; i < json.length; i++) {
+                    // do something more...
+
+                    $("#konwbody").append("<tr>"+
+                    "<td class='t_1'>"+json[i].id+"</td>"+
+                       " <td class='t_4'><a href=''>"+json[i].question+"</a></td>"+
+                       "<td class='t_5'>"+json[i].answer+"</td>"+
+                      "<!--<td class='t_4'><div class='btn'><a href='javascript:updateKnow("+JSON.stringify(json[i])+")'class='modify'>修改</a><a href='javascript:deleteKnow("+json[i].id+")'class='delete'>删除</a></div></td>-->"+
+                        "</tr>"
+                    )
+                }
+            });
+        })
+
+    }
+
+    $(document).ready(function () {
+
+		changePage(1)
+		clickpage()
+    })
+
+    $("#saveKnow").click(
+        function () {
+            var formData = new FormData();
+
+            // 请求参数 ('key',value)
+            formData.append('question', $("#question").val());
+            formData.append('answer',$("#answer").val());
+
+
+            fetch("/know/saveKnow",{
+                method:'POST',
+                body:formData,
+
+            }).then(function (response)
+
+            {
+                return response.json().then(function (json) {
+                    alert("添加成功")
+                    window.location.reload()
+                });
+            })
+        }
+    )
+</script>
+<script type="text/javascript">
+	
+	function decrease() {
+	    if (page>1){
+	        page=page-1
+	        changePage(page)
+		}
+		clickpage()
+    }
+    function increase() {
+
+		page=page+1;
+		changePage(page)
+		clickpage()
+    }
+    function clickpage() {
+        $(".pagenumb").each(function(){
+            if ($(this).html()==page){
+                $(this).attr("class","pagenumb cur")
+			}
+			else {
+                $(this).attr("class","pagenumb")
+			}
+        });
+    }
+    function gotopage( a) {
+	    page=a
+		changePage(page)
+		clickpage(page)
+
+    }
+</script>
+<script>
+	function findQAbys() {
+		var  s=$("#s").val()
+
+        fetch("/know/searchQAlist?pageNum=1&pageSize=10&s="+s+"").then(function (response) {
+            return response.json().then(function (json) {
+
+                $("#konwbody").html("")
+                for (i = 0; i < json.length; i++) {
+                    // do something more...
+
+                    $("#konwbody").append("<tr>"+
+                        "<td class='t_1'>"+json[i].id+"</td>"+
+                        " <td class='t_4'><a href=''>"+json[i].question+"</a></td>"+
+                        "<td class='t_5'>"+json[i].answer+"</td>"+
+                        "</tr>"
+                    )
+                }
+            });
+        })
+
+
+    }
+</script>
+
+</body></html>
