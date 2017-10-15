@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @ResponseBody
+
     @RequestMapping("/")
     String home() {
         return "index";
@@ -39,5 +39,6 @@ public class UserController {
 
         return userService.findUserByPage(pageNum,pageSize);
     }
+
 
 }
