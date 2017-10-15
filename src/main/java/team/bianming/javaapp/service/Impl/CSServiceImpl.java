@@ -66,4 +66,9 @@ public class CSServiceImpl implements CSService {
     public CustomService findByNum(String num) {
         return customServiceMapper.getByNum(num);
     }
+
+    @Override
+    public CustomService findByNamePass(String name, String password) {
+        return customServiceMapper.getByNamePass(name,password);
+    }
 }

@@ -1,5 +1,6 @@
 package team.bianming.javaapp.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.springframework.stereotype.Repository;
 import team.bianming.javaapp.entity.RecordInfo;
 
@@ -12,4 +13,7 @@ import java.util.Map;
 @Repository
 public interface RecordMapper {
     List<RecordInfo> getRecords(Map<String,Object> params);
+
+    @Insert("insert into record (session_id,sender_type,sendtime,accepter_id,sender_id,content) values (#{sessionId},#{senderType},#{sendtime},#{acceptId},#{senderId},#{content})")
+    void insertRecord(RecordInfo recordInfo);
 }

@@ -11,4 +11,6 @@ import java.util.Map;
  */
 public interface RecordService {
     List<RecordInfo> queryRecords(Map<String,Object> params);
+
+    void addRecord(RecordInfo recordInfo);
 }

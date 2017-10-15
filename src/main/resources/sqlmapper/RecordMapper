@@ -9,6 +9,7 @@
         <result property="sendtime" column="sendtime"/>
         <result property="acceptId" column="accept_id"/>
         <result property="senderId" column="sender_id"/>
+        <result property="content" column="content"/>
     </resultMap>
 
 

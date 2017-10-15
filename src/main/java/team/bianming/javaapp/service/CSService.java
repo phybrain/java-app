@@ -19,4 +19,5 @@ public interface CSService {
     public List<SessionInfo> findSessionInfoByCS(CustomService customService);
     public List<SessionInfo> findRecentSessionInfo( int Size,CustomService customService);
     public CustomService findByNum(String num);
+    public CustomService findByNamePass(String name,String password);
 }

@@ -12,7 +12,7 @@ import team.bianming.javaapp.entity.QA;
 @Mapper
 public interface QAMapper {
 
-    @Select("select * from qa where question like %#{s}% or answer like %#{s}%")
+    @Select("select * from qa where question like CONCAT(CONCAT('%', #{s}), '%') or answer like CONCAT(CONCAT('%', #{s}), '%')")
     @Results({@Result(id = true, column = "id", property = "id"),
             @Result(column = "question", property = "question"),
             @Result(column = "answer", property = "answer"),

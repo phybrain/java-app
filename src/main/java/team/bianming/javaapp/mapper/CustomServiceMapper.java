@@ -58,4 +58,14 @@ public interface CustomServiceMapper {
 
     })
     public CustomService getByNum(String num);
+
+    @Select("select * from custom_service where name=#{name} AND password=#{password}")
+    @Results({ @Result(id = true, column = "id", property = "id"),
+            @Result(column = "name", property = "name"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "time", property = "time"),
+            @Result(column = "weekday", property = "weekday"),
+            @Result(column = "num", property = "num"),
+    })
+    public  CustomService getByNamePass(String name,String password);
 }

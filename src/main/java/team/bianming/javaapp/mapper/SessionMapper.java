@@ -4,9 +4,11 @@ import com.sun.javafx.collections.MappingChange;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import team.bianming.javaapp.entity.SessionInfo;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,4 +32,10 @@ public interface SessionMapper {
      * @return
      */
     List<SessionInfo> getCSRecentSessions(Map<String,Object> params);
+
+
+    Integer createSession(SessionInfo sessionInfo);
+
+    @Update("update session set endtime=#{date} where id=#{id}")
+    void closeSession(Integer id,Date date);
 }

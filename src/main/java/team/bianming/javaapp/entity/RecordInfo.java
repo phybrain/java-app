@@ -15,4 +15,5 @@ public class RecordInfo {
     int senderId;
     int accepterId;
     Date sendtime;
+    String content;
 }
