@@ -223,7 +223,7 @@ public class CSController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/endSession",method = RequestMethod.POST)
+    @RequestMapping(value = "/endSession",method = {RequestMethod.POST,RequestMethod.GET})
     public String endSession(HttpSession session){//结束会话
         if("cs".equals(session.getAttribute("type"))){
             Integer csid = (Integer) session.getAttribute("csid");

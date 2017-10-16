@@ -67,5 +67,5 @@ public interface CustomServiceMapper {
             @Result(column = "weekday", property = "weekday"),
             @Result(column = "num", property = "num"),
     })
-    public  CustomService getByNamePass(String name,String password);
+    public  CustomService getByNamePass(@Param("name")String name,@Param("password")String password);
 }
