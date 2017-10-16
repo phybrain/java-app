@@ -297,5 +297,18 @@ public class CSController {
     }
 
 
+    @ResponseBody
+    @RequestMapping(value = "/xunconnect",method = {RequestMethod.POST,RequestMethod.GET})
+    public String  xunconnect(HttpSession session){
+        Integer csid = (Integer) session.getAttribute("csid");
+        if(csid==null){
+            return "false";
+        }
+        if(cps2.containsKey(csid)){//有会话
+            return "true";
+        }
+        return "false";
+
+    }
 
 }

@@ -13,15 +13,20 @@ import java.util.Map;
 /**
  * Created by ckwin8 on 2017/8/27.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class SessionMapperTest {
-    @Autowired
-    private SessionMapper sessionMapper;
+//    @Autowired
+//    private SessionMapper sessionMapper;
+//
+//    @Test
+//    public void test1(){
+//        Map<String,Object> params = new HashMap<>();
+//        System.out.println(sessionMapper.getSessions(params).size());
+//    }
 
     @Test
-    public void test1(){
-        Map<String,Object> params = new HashMap<>();
-        System.out.println(sessionMapper.getSessions(params).size());
+    public void hhh(){
+        System.out.print("\u62b1\u6b49\uff0c\u6211\u6ca1\u6709\u7406");
     }
 }

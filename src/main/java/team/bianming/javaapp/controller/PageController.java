@@ -94,4 +94,9 @@ public class PageController {
 
         return "/cs_header";
     }
+
+    @RequestMapping("/vue.html")
+    public String vue(){
+        return "vue";
+    }
 }
