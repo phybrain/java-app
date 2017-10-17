@@ -50,7 +50,7 @@ public class UserController {
         User user = userService.login(name,password);
         if(user!=null){
             session.setAttribute("userid",user.getId());
-
+            session.setAttribute("type","user");
             result.setCode("true");
             result.setResult(user);
             return result;

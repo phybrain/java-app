@@ -49,11 +49,11 @@
                  order by starttime desc limit #{pageSize}
      </select>
 
-    <insert id="addSession" parameterType="team.bianming.javaapp.entity.SessionInfo" keyProperty="id">
+    <insert id="createSession" parameterType="team.bianming.javaapp.entity.SessionInfo" keyProperty="id">
         <selectKey keyProperty='id' resultType='int' order='AFTER'  >
             select LAST_INSERT_ID();
         </selectKey>
-        insert into session starttime=#{starttime},user_id=#{userId},cs_id=#{csId}
+        insert into session (starttime,user_id,cs_id) values(#{starttime},#{userId},#{csId})
     </insert>
 
 

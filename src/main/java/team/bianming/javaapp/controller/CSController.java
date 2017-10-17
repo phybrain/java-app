@@ -200,7 +200,7 @@ public class CSController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getNewRecords",method = RequestMethod.POST)
+    @RequestMapping(value = "/getNewRecords",method = {RequestMethod.POST,RequestMethod.GET})
     public List<RecordInfo> getNewRecords(HttpSession httpSession){//轮询时调用,返回null表示对话已经结束了
         Integer sessionId = null;
         if("cs".equals(httpSession.getAttribute("type"))){//是客服
@@ -310,6 +310,7 @@ public class CSController {
             recordInfo.setSendtime(new Date());
             recordInfo.setAccepterId(userid);
             recordInfo.setSessionId(sessionId);
+            recordInfo.setContent(content);
 
             queue.add(recordInfo);
             recordService.addRecord(recordInfo);
