@@ -187,6 +187,7 @@ public class CSController {
         }else{
            httpSession.setAttribute("csid",cs.getId());
            httpSession.setAttribute("type","cs");
+           nowEmptyCS.add(cs.getId());
            return "true";
         }
     }
