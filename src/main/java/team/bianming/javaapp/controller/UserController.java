@@ -47,9 +47,9 @@ public class UserController {
         User user = userService.login(name,password);
         if(user!=null){
             session.setAttribute("userid",user.getId());
-            return "true";
+            return "{result:true}";
         }
-        return "false";
+        return "{result:false}";
     }
 
 }
