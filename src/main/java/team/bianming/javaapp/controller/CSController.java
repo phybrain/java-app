@@ -288,6 +288,7 @@ public class CSController {
             recordInfo.setSendtime(new Date());
             recordInfo.setAccepterId(userid);
             recordInfo.setSessionId(sessionId);
+            recordInfo.setContent(content);
 
             queue.add(recordInfo);
             recordService.addRecord(recordInfo);
