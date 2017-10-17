@@ -56,4 +56,9 @@ public class UserServiceImpl implements UserService{
     public SessionInfo findLastSessionInfo(User user) {
         return sessionMapper.getUserLastSession(user.getId());
     }
+
+    @Override
+    public User login(String name, String password) {
+        return userMapper.findByNamePass(name,password);
+    }
 }

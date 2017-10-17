@@ -19,4 +19,5 @@ public interface UserService {
     public int UpdateUser(User user);
     public List<SessionInfo> findSessionInfoByUser(User user);
     public SessionInfo findLastSessionInfo(User user);
+    public User login(String name,String password);
 }

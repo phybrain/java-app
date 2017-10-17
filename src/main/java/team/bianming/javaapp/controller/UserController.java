@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team.bianming.javaapp.entity.User;
 import team.bianming.javaapp.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -40,5 +41,15 @@ public class UserController {
         return userService.findUserByPage(pageNum,pageSize);
     }
 
+    @ResponseBody
+    @RequestMapping("/login")
+    public String login(HttpSession session,String name,String password){
+        User user = userService.login(name,password);
+        if(user!=null){
+            session.setAttribute("userid",user.getId());
+            return "true";
+        }
+        return "false";
+    }
 
 }

@@ -44,5 +44,13 @@ public interface UserMapper {
     @Delete("delete from user where id=#{id}")
     public int delete(int id);
 
+    @Select("select * from user where name=#{name} and password=#{password}")
+    @Results({ @Result(id = true, column = "id", property = "id"),
+            @Result(column = "name", property = "name"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "idcard", property = "idcard"),
+            @Result(column = "register_time", property = "registerTime")
+    })
+    public User findByNamePass(@Param("name") String name,@Param("password") String password);
 
 }
