@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import team.bianming.javaapp.entity.Result;
 import team.bianming.javaapp.entity.User;
 import team.bianming.javaapp.service.UserService;
 
@@ -43,13 +44,18 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/login")
-    public String login(HttpSession session,String name,String password){
+    public Result login(HttpSession session, String name, String password){
+        Result result = new Result();
+
         User user = userService.login(name,password);
         if(user!=null){
             session.setAttribute("userid",user.getId());
-            return "{result:true}";
+
+            result.setResult("true");
+            return result;
         }
-        return "{\"result\":\"false\"}";
+        result.setResult("false");
+        return result;
     }
 
 }
