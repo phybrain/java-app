@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import team.bianming.javaapp.Util.FileUtil;
-import team.bianming.javaapp.entity.CustomService;
-import team.bianming.javaapp.entity.RecordInfo;
-import team.bianming.javaapp.entity.SessionInfo;
-import team.bianming.javaapp.entity.TalkPool;
+import team.bianming.javaapp.entity.*;
 import team.bianming.javaapp.service.CSService;
 import team.bianming.javaapp.service.RecordService;
 import team.bianming.javaapp.service.SessionService;
@@ -158,9 +155,17 @@ public class CSController {
 
     @ResponseBody
     @RequestMapping(value = "/createNewSession",method = RequestMethod.GET)
-    public String createSession(HttpSession session){//用户申请客服对话
+    public Result createSession(HttpSession session){//用户申请客服对话
         Object[] nowEmptyCSArr = nowEmptyCS.toArray();
         Random random = new Random();
+
+
+        Result result = new Result();
+        if(nowEmptyCSArr.length==0){
+            result.setCode("false");
+            return result;
+        }
+
         int randInt = random.nextInt(nowEmptyCSArr.length);
         Integer csId = (Integer) nowEmptyCSArr[randInt];
         Integer uId = (Integer) session.getAttribute("userid");
@@ -175,7 +180,9 @@ public class CSController {
         cps1.put(csId,uId);
         cps2.put(uId,csId);
         sessionPool.put(sessionId,new TalkPool());
-        return "{\"result\":\"true\"}";
+
+        result.setCode("true");
+        return result;
     }
 
     @ResponseBody
@@ -225,7 +232,7 @@ public class CSController {
 
     @ResponseBody
     @RequestMapping(value = "/endSession",method = {RequestMethod.POST,RequestMethod.GET})
-    public String endSession(HttpSession session){//结束会话
+    public Result endSession(HttpSession session){//结束会话
         if("cs".equals(session.getAttribute("type"))){
             Integer csid = (Integer) session.getAttribute("csid");
             Integer sessionId = nowSessions.get(csid);
@@ -249,15 +256,26 @@ public class CSController {
             cps1.remove(csid);
             cps2.remove(userid);
         }
-        return "{\"result\":\"true\"}";
+
+        Result result = new Result();
+        result.setCode("true");
+        return result;
     }
 
 
     @ResponseBody
     @RequestMapping(value = "/send",method = {RequestMethod.POST,RequestMethod.GET})
-    public String  sendRecord(String content,HttpSession session){
+    public Result sendRecord(String content,HttpSession session){//若对话已经结束，返回的code为false
+        Result result = new Result();
+
         if("cs".equals(session.getAttribute("type"))){
             int csid = (Integer) session.getAttribute("csid");
+
+            if(!cps1.containsKey(csid)){
+                result.setCode("false");
+                return result;
+            }
+
             int userid = cps1.get(csid);
             Integer sessionId = nowSessions.get(csid);
 
@@ -275,10 +293,14 @@ public class CSController {
             recordService.addRecord(recordInfo);
         }else if("user".equals(session.getAttribute("type"))){
             Integer userid = (Integer) session.getAttribute("userid");
+
+            if(!cps2.containsKey(userid)){
+                result.setCode("false");
+                return result;
+            }
+
             Integer csid = cps2.get(userid);
-
             Integer sessionId = nowSessions.get(csid);
-
             TalkPool talkPool = sessionPool.get(sessionId);
             Queue<RecordInfo> queue = talkPool.getUser2cs();
 
@@ -294,7 +316,8 @@ public class CSController {
 
         }
 
-        return "{\"result\":\"true\"}";
+        result.setCode("true");
+        return result;
     }
 
 
