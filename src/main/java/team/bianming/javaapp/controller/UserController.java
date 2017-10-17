@@ -49,7 +49,7 @@ public class UserController {
             session.setAttribute("userid",user.getId());
             return "{result:true}";
         }
-        return "{result:false}";
+        return "{\"result\":\"false\"}";
     }
 
 }

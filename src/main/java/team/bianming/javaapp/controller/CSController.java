@@ -175,7 +175,7 @@ public class CSController {
         cps1.put(csId,uId);
         cps2.put(uId,csId);
         sessionPool.put(sessionId,new TalkPool());
-        return "{result:true}";
+        return "{\"result\":\"true\"}";
     }
 
     @ResponseBody
@@ -249,7 +249,7 @@ public class CSController {
             cps1.remove(csid);
             cps2.remove(userid);
         }
-        return "{result:true}";
+        return "{\"result\":\"true\"}";
     }
 
 
@@ -294,7 +294,7 @@ public class CSController {
 
         }
 
-        return "{result:true}";
+        return "{\"result\":\"true\"}";
     }
 
 
