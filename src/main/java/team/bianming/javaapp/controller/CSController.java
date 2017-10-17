@@ -116,7 +116,7 @@ public class CSController {
         System.out.println("upload url:"+upload.getAbsolutePath());
         String filePath=upload.getAbsolutePath();
 
-        String[] splits = fileName.split(".");
+        String[] splits = fileName.split("\\.");
         try {
             FileUtil.uploadFile(file.getBytes(), filePath, num+"."+splits[splits.length-1]);
         } catch (Exception e) {
@@ -145,7 +145,7 @@ public class CSController {
 
 
     @ResponseBody
-    @RequestMapping(value="/getPage", method = RequestMethod.GET)
+    @RequestMapping(value="/getPage", method = {RequestMethod.GET,RequestMethod.POST})
     public Page<CustomService> getPage(int pageNum, int pageSize){
         return csService.findCSByPage(pageNum,pageSize);
     }

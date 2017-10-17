@@ -327,7 +327,7 @@ ZXXFILE.init();
 
 		var categoryID=1;
 		var Page=0;
-		var pageSize=2;
+		var pageSize=10;
        $(document).ready( function() {
            fetch("/news/newslist?pageNum="+Page+"&pageSize="+pageSize+"&categoryId="+categoryID+"").then(function (response) {
                return response.json().then(function (json) {

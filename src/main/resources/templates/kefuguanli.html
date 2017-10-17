@@ -32,7 +32,7 @@
 				<div class="ctab-Main-title">
 					<ul class="clearfix">
 						<li class="cur"><a href="tupian_yd_index.html">客服管理</a></li>
-						<li><a href="tupian_yd_jzg.html">聊天记录管理</a></li>
+						<!--<li><a href="tupian_yd_jzg.html">聊天记录管理</a></li>-->
 						
 					</ul>
 				</div>
@@ -176,7 +176,7 @@
 		time12 = obj.time.split('-');
 		toAppend = toAppend.replace("${time1}",time12[0]);
 		toAppend = toAppend.replace("${time2}",time12[1]);
-		toAppend = toAppend.replace("${head}","/head/"+obj.num+"jpg");
+		toAppend = toAppend.replace("${head}","/head/"+obj.num+".jpg");
 		$('#preview').append(toAppend);
 	}
 

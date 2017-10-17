@@ -2,11 +2,37 @@
 <head>
     <meta charset="utf-8">
     <title>ECharts</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="main" style="height:600px"></div>
     <!-- ECharts单文件引入 -->
+    <script type="text/javascript">
+        var cs=new Array()
+
+
+
+        $.ajax({
+            url:"/cs/getPage?pageNum=1&pageSize=100",
+            type:"GET",
+            async:true,    //或false,是否异步
+            contentType:false,
+            success:function(data){
+
+                for (var  i=0;i<data.length;i++) {
+                    cs.push( data[i].name)
+                }
+
+            },
+            timeout:10000,    //超时时间
+            error:function(e){
+                alert("错误！！");
+            }
+        })
+
+
+    </script>
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">
         // 路径配置
@@ -57,7 +83,7 @@
     xAxis : [
         {
             type : 'category',
-            data : ['客服1','客服2','客服3','客服4','客服5','客服6','客服7','客服8','客服9','客服10','客服11','客服12']
+            data : cs//['客服4','客服5','客服6','客服7','客服8','客服9']
         }
     ],
     yAxis : [
@@ -69,7 +95,7 @@
         {
             name:'工作总时长',
             type:'bar',
-            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            data:[23.2, 25.6, 76.7, 135.6, 162.2, 32.6,],
             markPoint : {
                 data : [
                     {type : 'max', name: '最大值'},
@@ -85,7 +111,7 @@
         {
             name:'对话数量',
             type:'bar',
-            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+            data:[ 26.4, 28.7, 70.7, 175.6, 182.2, 48.7],
             markPoint : {
                 data : [
                     {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
@@ -106,4 +132,5 @@
             }
         );
     </script>
+
 </body>
