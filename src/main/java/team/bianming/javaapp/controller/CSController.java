@@ -179,7 +179,7 @@ public class CSController {
         nowSessions.put(csId,sessionId);
         cps1.put(csId,uId);
         cps2.put(uId,csId);
-        sessionPool.put(sessionId,new TalkPool());
+        sessionPool.put(sessionInfo.getId(),new TalkPool());
 
         result.setCode("true");
         return result;
@@ -244,6 +244,7 @@ public class CSController {
             nowSessions.remove(csid);
             cps1.remove(csid);
             cps2.remove(userid);
+            nowEmptyCS.add(csid);
         }else if("user".equals(session.getAttribute("type"))){
             Integer userid = (Integer) session.getAttribute("userid");
             Integer csid = cps2.get(userid);
@@ -255,6 +256,7 @@ public class CSController {
             nowSessions.remove(csid);
             cps1.remove(csid);
             cps2.remove(userid);
+            nowEmptyCS.add(csid);
         }
 
         Result result = new Result();

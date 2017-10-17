@@ -1,10 +1,7 @@
 package team.bianming.javaapp.mapper;
 
 import com.sun.javafx.collections.MappingChange;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import team.bianming.javaapp.entity.SessionInfo;
 
@@ -34,8 +31,10 @@ public interface SessionMapper {
     List<SessionInfo> getCSRecentSessions(Map<String,Object> params);
 
 
+    @Insert("insert into session (starttime,user_id,cs_id) values(#{starttime},#{userId},#{csId})")
+    @SelectKey(statement="select last_insert_id()",keyProperty="id", resultType=int.class, before=true)
     Integer createSession(SessionInfo sessionInfo);
 
     @Update("update session set endtime=#{date} where id=#{id}")
-    void closeSession(Integer id,Date date);
+    void closeSession(@Param("id") Integer id, @Param("date") Date date);
 }
