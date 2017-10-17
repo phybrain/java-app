@@ -14,6 +14,6 @@ import java.util.Map;
 public interface RecordMapper {
     List<RecordInfo> getRecords(Map<String,Object> params);
 
-    @Insert("insert into record (session_id,sender_type,sendtime,accepter_id,sender_id,content) values (#{sessionId},#{senderType},#{sendtime},#{acceptId},#{senderId},#{content})")
+    @Insert("insert into record (session_id,sender_type,sendtime,accepter_id,sender_id,content) values (#{sessionId},#{senderType},#{sendtime},#{accepterId},#{senderId},#{content})")
     void insertRecord(RecordInfo recordInfo);
 }
