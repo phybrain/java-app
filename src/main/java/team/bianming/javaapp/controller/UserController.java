@@ -51,10 +51,11 @@ public class UserController {
         if(user!=null){
             session.setAttribute("userid",user.getId());
 
-            result.setResult("true");
+            result.setCode("true");
+            result.setResult(user);
             return result;
         }
-        result.setResult("false");
+        result.setCode("false");
         return result;
     }
 

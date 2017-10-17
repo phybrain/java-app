@@ -8,6 +8,6 @@ import lombok.Data;
 
 @Data
 public class Result {
-    String result;
-
+    String code;
+    Object result;
 }
