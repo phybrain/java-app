@@ -228,7 +228,13 @@ public class CSController {
 
         List<RecordInfo> res = new ArrayList<>();
         RecordInfo recordInfo = new RecordInfo();
-        recordInfo.setContent("");
+        recordInfo.setContent("xxee");
+        recordInfo.setSendtime(new Date());
+        recordInfo.setSenderType("cs");
+        recordInfo.setSenderId(1);
+        recordInfo.setAccepterId(1);
+        recordInfo.setId(1);
+        recordInfo.setSessionId(1);
         res.add(recordInfo);
         return res;
     }
