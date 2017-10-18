@@ -16,4 +16,5 @@ public class RecordInfo {
     int accepterId;
     Date sendtime;
     String content;
+    boolean isRight=false;
 }

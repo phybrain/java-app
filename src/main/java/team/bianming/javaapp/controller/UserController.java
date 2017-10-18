@@ -11,6 +11,7 @@ import team.bianming.javaapp.entity.User;
 import team.bianming.javaapp.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,6 +57,18 @@ public class UserController {
             return result;
         }
         result.setCode("false");
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/register")
+    public Result regisiter(User user){
+        user.setRegisterTime(new Date());
+        userService.SaveUser(user);
+
+        Result result = new Result();
+        result.setResult(user);
+        result.setCode("true");
         return result;
     }
 
