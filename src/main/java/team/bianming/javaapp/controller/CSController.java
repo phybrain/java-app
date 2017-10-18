@@ -226,7 +226,11 @@ public class CSController {
             return recordInfos;
         }
 
-        return new ArrayList<>();
+        List<RecordInfo> res = new ArrayList<>();
+        RecordInfo recordInfo = new RecordInfo();
+        recordInfo.setContent("");
+        res.add(recordInfo);
+        return res;
     }
 
 
