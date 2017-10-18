@@ -175,8 +175,8 @@ public class CSController {
         sessionInfo.setCsId(csId);
         sessionInfo.setUserId(uId);
 
-        Integer sessionId = sessionService.createSession(sessionInfo);
-        nowSessions.put(csId,sessionId);
+        sessionService.createSession(sessionInfo);
+        nowSessions.put(csId,sessionInfo.getId());
         cps1.put(csId,uId);
         cps2.put(uId,csId);
         sessionPool.put(sessionInfo.getId(),new TalkPool());
