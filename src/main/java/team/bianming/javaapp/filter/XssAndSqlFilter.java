@@ -15,24 +15,24 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2016年2月2日
  * @Time 下午2:01:53
  */
-public class XssAndSqlFilter implements Filter {
-
-    @Override
-    public void destroy() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        XssAndSqlHttpServletRequestWrapper xssRequest = new XssAndSqlHttpServletRequestWrapper((HttpServletRequest) request);
-        chain.doFilter(xssRequest, response);
-    }
-
-    @Override
-    public void init(FilterConfig arg0) throws ServletException {
-        // TODO Auto-generated method stub
-
-    }
-
-}
+//public class XssAndSqlFilter implements Filter {
+//
+//    @Override
+//    public void destroy() {
+//        // TODO Auto-generated method stub
+//
+//    }
+//
+//    @Override
+//    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+//        XssAndSqlHttpServletRequestWrapper xssRequest = new XssAndSqlHttpServletRequestWrapper((HttpServletRequest) request);
+//        chain.doFilter(xssRequest, response);
+//    }
+//
+//    @Override
+//    public void init(FilterConfig arg0) throws ServletException {
+//        // TODO Auto-generated method stub
+//
+//    }
+//
+//}
