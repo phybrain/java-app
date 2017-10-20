@@ -21,9 +21,12 @@ public class AIController {
     @ResponseBody
     @RequestMapping("/ask")
     public AiAnswerVo ask(String question){
-        String answer = restTemplate.getForObject("http://192.168.1.101:8000/chat/"+question, AiAnswer.class).getAnswer();
-         AiAnswerVo aiAnswerVo = new AiAnswerVo();
-         aiAnswerVo.setAnswer(answer);
+//        String answer = restTemplate.getForObject("http://192.168.1.101:8000/chat/"+question, AiAnswer.class).getAnswer();
+//         AiAnswerVo aiAnswerVo = new AiAnswerVo();
+//         aiAnswerVo.setAnswer(answer);
+        AiAnswerVo aiAnswerVo = new AiAnswerVo();
+        aiAnswerVo.setAnswer("...");
+        aiAnswerVo.setIsRight(false);
          return aiAnswerVo;
     }
 
